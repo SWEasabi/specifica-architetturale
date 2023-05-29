@@ -38,10 +38,47 @@ Il token di refresh viene infatti riconosciuto solamente da questo sistema.
 
 Il token di refresh ha durata di 2h, mentre il token di autorizzazione ha durata di 10 minuti.
 
-\section{Interfaccia REST}
+\section{Port Interfaccia REST}
 
 L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
 
-\subsection{Autenticazione}
+\begin{itemize}
+    \item POST /login
+    \item POST /logout
+    \item POST /refresh/refreshtoken
+    \item POST /refresh/accesstoken
+\end{itemize}
 
-POST /auth/login
+\subsection{POST /login}
+
+Login permette di effettuare il login di un utente. L'utente deve fornire le credenziali di accesso, e il sistema risponderà con un token di autorizzazione e un token di refresh.
+
+Le credenziali vengono fornite sotto formato JSON nel body della richiesta, e devono essere composte da username e password.
+
+\subsection{POST /logout}
+
+Logout permette di effettuare il logout di un utente. L'utente deve fornire il token di refresh, e il sistema risponderà con un messaggio di conferma.
+
+Il sistema invalida il token di refresh fornito, e l'utente non potrà più utilizzarlo per generare nuovi token di autorizzazione.
+
+Per invalidarlo, il sistema lo inserisce in una blacklist, e non lo accetterà più come valido.
+
+Quando il token di refresh scade, il sistema lo rimuove dalla blacklist.
+
+\subsection{POST /refresh/refreshtoken}
+
+Refresh refreshtoken permette di generare un nuovo token di refresh. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di refresh.
+
+\subsection{POST /refresh/accesstoken}
+
+Refresh accesstoken permette di generare un nuovo token di autorizzazione. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di autorizzazione.
+
+\section{Port Database}
+
+Il sistema utilizza un database per memorizzare i JWT di accesso in blackilist.
+
+Si immagina inoltre che il sistema utilizzi un database per memorizzare le credenziali degli utenti. Nella nostra versione attuale esistono però solamente due utenti e questi sono definiti all'interno del codice.
+
+%%Qui va inserita la progettazione del db con progettazione concettuale(chiaramente molto ridotta).
+
+%Va inoltre analizzato quale è il db migliore per gestire la coda fifo della blacklist. probabilmente un db non relazionale è più adatto. come mongoDB.
