@@ -28,6 +28,16 @@ Il sistema utilizza un'architettura esagonale, in cui il core del sistema si occ
 
 Il sistema offre poi un'interfaccia di tipo REST, e si connette sempre tramite l'utilizzo del sistema a porte ad un Database per la memorizzazione dei dati.
 
+\subsection{Il core del sistema}
+
+\subsubsection{Le classi base dell'architettura esagonale}
+
+Nell'architettura esagonale, il core del sistema è composto da tre classi base: il port, l'adapter e il modello.
+
+%%Qui vanno definite le responsabilità di ogni classe.
+
+
+
 \subsection{I JWT}
 
 Il sistema generale è pensato per utilizzare due tipologie di Token. Viene utilizzato un token di autorizzazione, che viene utilizzato per l'autenticazione e per l'accesso alle risorse protette degli altri microservizi e un token di refresh, che viene utilizzato per la generazione di un nuovo token di autorizzazione.
