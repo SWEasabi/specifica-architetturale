@@ -22,7 +22,7 @@ Il sistema utilizza un'architettura esagonale, in cui il core del sistema si occ
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{img/classi_auth.png}
+    \includegraphics[width=\textwidth]{img/classi_auth_1.png}
     \caption{Diagramma delle classi del sistema di autenticazione}
 \end{figure}
 
@@ -37,11 +37,12 @@ Nell'architettura esagonale, il core del sistema è composto da tre classi base:
 %%Qui vanno definite le responsabilità di ogni classe.
 \begin{itemize}
     \item \textbf{Authenticator:} si occupa dell'autenticazione dell'utente, verificando che l'username e la password fornite siano corrette.
-    \item \textbf{Blacklister:} si occupa di inserire in una \textit{blacklist} i jwt di refresh che si vogliono rendere inutilizzabili.
+    \item \textbf{RefreshJwtBlacklister:} si occupa di inserire in una \textit{blacklist} i jwt di refresh che si vogliono rendere inutilizzabili.
     \item \textbf{JwtExtractor:} si occupa di estrarre la mappa chiave-valore dal jwt. In particolare nel nostro caso serve estrarre l'username dell'utente.
     \item \textbf{JwtIssuer:} si occupa della creazione e della rigenerazione dei jwt (access o refresh), inserendo al loro interno l'username dell'utente.
     \item \textbf{JwtPackager:} si occupa della creazione e della firma di un generico jwt. Ha un tipo, una mappa chiave-valore e una scadenza.
     \item \textbf{JwtVerifier:} si occupa di verificare che un jwt ricevuto sia valido, ovvero che abbia un determinato tipo (access o refresh), non sia ancora scaduto e che abbia la mappa chiave-valore.
+    \item \textbf{JwtAuthority:} si occupa di esporre le funzionalità dei jwt utilizzando le relative classi.
 \end{itemize}
 
 
