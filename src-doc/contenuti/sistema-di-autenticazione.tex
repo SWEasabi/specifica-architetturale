@@ -3,13 +3,22 @@
 
 \section{Scopo del sistema}
 
-Il sistema di autenticazione ha lo scopo di gestire le richieste di autenticazione da parte degli utenti e di fornire un token di sessione valido per l'accesso alle risorse protette.
+Il sistema di autenticazione ha lo scopo di gestire le richieste di accesso al macro-sistema generale da parte degli utenti\footnote{Utenti umani oppure digitali} e di fornire un mezzo per rendere autenticato l'utente nell'usufruire delle risorse protette nel resto delle componenti del sistema generale.
+
 
 \section{Descrizione del sistema}
 
-Il sistema di autenticazione è definito da un microservizio che espone un'interfaccia REST per la gestione delle richieste di autenticazione degli utenti. Il microservizio è inoltre responsabile della generazione e della validazione dei token di sessione.
+Per autenticare gli utenti, questi devono fornire le proprie credenziali di accesso, ovvero il proprio username e la propria password.
+
+La sessione viene quindi mantenuta consegnando all'utente un token di sessione, che dovrà essere utilizzato per ogni richiesta successiva. Il token di sessione ha una durata limitata nel tempo, e quando scade l'utente deve richiedere un nuovo token di sessione, utilizzando il token di refresh che gli è stato consegnato insieme al token di sessione. Il token di refresh ha una durata maggiore rispetto al token di sessione, e può essere utilizzato solo per richiedere un nuovo token di sessione al servizio in oggetto, ogni volta che scade quello attualmente in uso.
+
+Questo servizio offre le funzionalità sopra descritte tramite un'interfaccia REST.
 
 I token di sessione utilizzati sono del tipo JWT (JSON Web Token) e sono composti da tre parti separate da un punto. La prima parte contiene le informazioni relative all'algoritmo di hashing utilizzato per la firma del token, la seconda parte contiene le informazioni relative all'utente autenticato e la terza parte contiene la firma del token.
+
+La scelta di utilizzare un token di sessione di tipo JWT rende il sistema \textbf{stateless}, ovvero non è necessario memorizzare alcuna informazione relativa alla sessione dell'utente, in quanto tutte le informazioni necessarie sono contenute nel token stesso.
+
+L'essere senza stato rende quindi molto semplice scalare orizzontalmente il sistema, in quanto non è necessario sincronizzare lo stato tra più istanze del servizio.
 
 \section{Architettura del sistema}
 
