@@ -22,22 +22,30 @@ L'essere senza stato rende quindi molto semplice scalare orizzontalmente il sist
 
 \section{Architettura del sistema}
 
-Il sistema utilizza un'architettura esagonale, in cui il core del sistema si occupa della business logic ed offre:
+Il sistema utilizza il paradigma dell'architettura esagonale, e più in dettaglio si attiene alla clean architecture.
+
+Il core del sistema si occupa della business logic ed offre:
 \begin{itemize}
     \item Generazione dei JWT;
     \item Refresh dei JWT;
     \item Autenticazione degli utenti.
 \end{itemize}
 
-\begin{figure}[H]
+Le ports del sistema di autenticazione sono:
+\begin{itemize}
+    \item \textbf{REST}: si occupa di esporre le funzionalità del sistema di autenticazione tramite un'interfaccia REST;
+    \item \textbf{DB}: si occupa di interfacciarsi con il database per la memorizzazione dei dati;
+\end{itemize}
+
+Questi due sottosistemi architetturali sono uniti tramite degli adapter, che si occupano di interfacciare le ports con il core del sistema. Nel nostro glossario questi adapter sono chiamati \textbf{Service}.
+
+\subsection{Core del sistema}
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{img/classi_auth.png}
     \caption{Diagramma delle classi del sistema di autenticazione}
 \end{figure}
-
-Il sistema offre poi un'interfaccia di tipo REST, e si connette sempre tramite l'utilizzo del sistema a porte ad un Database per la memorizzazione dei dati.
-
-\subsection{Il core del sistema}
 
 \subsubsection{Le classi base dell'architettura esagonale}
 
@@ -54,7 +62,8 @@ Nell'architettura esagonale, il core del sistema è composto da tre classi base:
     \item \textbf{JwtAuthority:} si occupa di esporre le funzionalità dei jwt utilizzando le relative classi.
 \end{itemize}
 
-
+\subsection{Ports}
+\subsection{Adapters}
 \subsection{I JWT}
 
 Il sistema generale è pensato per utilizzare due tipologie di Token. Viene utilizzato un token di autorizzazione, che viene utilizzato per l'autenticazione e per l'accesso alle risorse protette degli altri microservizi e un token di refresh, che viene utilizzato per la generazione di un nuovo token di autorizzazione.
