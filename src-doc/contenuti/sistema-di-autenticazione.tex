@@ -39,17 +39,16 @@ Le ports del sistema di autenticazione sono:
 
 Questi due sottosistemi architetturali sono uniti tramite degli adapter, che si occupano di interfacciare le ports con il core del sistema. Nel nostro glossario questi adapter sono chiamati \textbf{Service}.
 
-\subsection{Core del sistema}
+\section{Core del sistema}
+
+Il core del sistema è composto da 7 classi, che sono rappresentate nel diagramma delle classi \hyperref{fig:classi_auth}. Queste si occupano di implementare la business logic del sistema.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{img/classi_auth.png}
     \caption{Diagramma delle classi del sistema di autenticazione}
+    \label{fig:classi_auth}
 \end{figure}
-
-\subsubsection{Le classi base dell'architettura esagonale}
-
-Nell'architettura esagonale, il core del sistema è composto da tre classi base: il port, l'adapter e il modello.
 
 %%Qui vanno definite le responsabilità di ogni classe.
 \begin{itemize}
@@ -62,8 +61,6 @@ Nell'architettura esagonale, il core del sistema è composto da tre classi base:
     \item \textbf{JwtAuthority:} si occupa di esporre le funzionalità dei jwt utilizzando le relative classi.
 \end{itemize}
 
-\subsection{Ports}
-\subsection{Adapters}
 \subsection{I JWT}
 
 Il sistema generale è pensato per utilizzare due tipologie di Token. Viene utilizzato un token di autorizzazione, che viene utilizzato per l'autenticazione e per l'accesso alle risorse protette degli altri microservizi e un token di refresh, che viene utilizzato per la generazione di un nuovo token di autorizzazione.
@@ -74,7 +71,10 @@ Il token di refresh viene infatti riconosciuto solamente da questo sistema.
 
 Il token di refresh ha durata di 2h, mentre il token di autorizzazione ha durata di 10 minuti.
 
-\section{Port Interfaccia REST}
+
+\section{Ports}
+
+\subsection{Port Interfaccia REST}
 
 L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
 
@@ -85,13 +85,13 @@ L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazi
     \item POST /refresh/accesstoken
 \end{itemize}
 
-\subsection{POST /login}
+\subsubsection{POST /login}
 
 Login permette di effettuare il login di un utente. L'utente deve fornire le credenziali di accesso, e il sistema risponderà con un token di autorizzazione e un token di refresh.
 
 Le credenziali vengono fornite sotto formato JSON nel body della richiesta, e devono essere composte da username e password.
 
-\subsection{POST /logout}
+\subsubsection{POST /logout}
 
 Logout permette di effettuare il logout di un utente. L'utente deve fornire il token di refresh, e il sistema risponderà con un messaggio di conferma.
 
@@ -101,20 +101,24 @@ Per invalidarlo, il sistema lo inserisce in una blacklist, e non lo accetterà p
 
 Quando il token di refresh scade, il sistema lo rimuove dalla blacklist.
 
-\subsection{POST /refresh/refreshtoken}
+\subsubsection{POST /refresh/refreshtoken}
 
 Refresh refreshtoken permette di generare un nuovo token di refresh. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di refresh.
 
-\subsection{POST /refresh/accesstoken}
+\subsubsection{POST /refresh/accesstoken}
 
 Refresh accesstoken permette di generare un nuovo token di autorizzazione. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di autorizzazione.
 
-\section{Port Database}
+\subsection{Port Database}
 
 Il sistema utilizza un database per memorizzare i JWT di accesso in blackilist.
 
 Si immagina inoltre che il sistema utilizzi un database per memorizzare le credenziali degli utenti. Nella nostra versione attuale esistono però solamente due utenti e questi sono definiti all'interno del codice.
 
+
 %%Qui va inserita la progettazione del db con progettazione concettuale(chiaramente molto ridotta).
 
 %Va inoltre analizzato quale è il db migliore per gestire la coda fifo della blacklist. probabilmente un db non relazionale è più adatto. come mongoDB.
+
+
+\section{Adapters}
