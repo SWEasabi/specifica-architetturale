@@ -5,6 +5,10 @@
 
 Il sistema di autenticazione ha lo scopo di gestire le richieste di accesso al macro-sistema generale da parte degli utenti\footnote{Utenti umani oppure digitali} e di fornire un mezzo per rendere autenticato l'utente nell'usufruire delle risorse protette nel resto delle componenti del sistema generale.
 
+\subsection{Use case coperti dal sistema}
+
+
+
 
 \section{Descrizione del sistema}
 
@@ -74,7 +78,11 @@ Il token di refresh ha durata di 2h, mentre il token di autorizzazione ha durata
 
 \section{Ports}
 
-\subsection{Port Interfaccia REST}
+Le ports del sistema di autenticazione sono due, e si occupano di interfacciare il core del sistema con l'esterno.
+
+È presente un'interfaccia REST, che espone le funzionalità del sistema di autenticazione tramite un'interfaccia REST, e un'interfaccia DB, che si occupa di interfacciarsi con il database per la memorizzazione dei dati.
+
+\section{Port Interfaccia REST}
 
 L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
 
@@ -85,13 +93,13 @@ L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazi
     \item POST /refresh/accesstoken
 \end{itemize}
 
-\subsubsection{POST /login}
+\subsection{POST /login}
 
 Login permette di effettuare il login di un utente. L'utente deve fornire le credenziali di accesso, e il sistema risponderà con un token di autorizzazione e un token di refresh.
 
 Le credenziali vengono fornite sotto formato JSON nel body della richiesta, e devono essere composte da username e password.
 
-\subsubsection{POST /logout}
+\subsection{POST /logout}
 
 Logout permette di effettuare il logout di un utente. L'utente deve fornire il token di refresh, e il sistema risponderà con un messaggio di conferma.
 
@@ -101,15 +109,15 @@ Per invalidarlo, il sistema lo inserisce in una blacklist, e non lo accetterà p
 
 Quando il token di refresh scade, il sistema lo rimuove dalla blacklist.
 
-\subsubsection{POST /refresh/refreshtoken}
+\subsection{POST /refresh/refreshtoken}
 
 Refresh refreshtoken permette di generare un nuovo token di refresh. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di refresh.
 
-\subsubsection{POST /refresh/accesstoken}
+\subsection{POST /refresh/accesstoken}
 
 Refresh accesstoken permette di generare un nuovo token di autorizzazione. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di autorizzazione.
 
-\subsection{Port Database}
+\section{Port Database}
 
 Il sistema utilizza un database per memorizzare i JWT di accesso in blackilist.
 
