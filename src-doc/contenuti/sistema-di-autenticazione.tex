@@ -1,0 +1,162 @@
+\chapter{Sistema di autenticazione}
+
+
+\section{Scopo del sistema}
+
+Il sistema di autenticazione ha lo scopo di gestire le richieste di accesso al macro-sistema generale da parte degli utenti\footnote{Utenti umani oppure digitali} e di fornire un mezzo per rendere autenticato l'utente nell'usufruire delle risorse protette nel resto delle componenti del sistema generale.
+
+\subsection{Use case coperti dal sistema}
+
+
+
+
+\section{Descrizione del sistema}
+
+Per autenticare gli utenti, questi devono fornire le proprie credenziali di accesso, ovvero il proprio username e la propria password.
+
+La sessione viene quindi mantenuta consegnando all'utente un token di sessione, che dovrà essere utilizzato per ogni richiesta successiva. Il token di sessione ha una durata limitata nel tempo, e quando scade l'utente deve richiedere un nuovo token di sessione, utilizzando il token di refresh che gli è stato consegnato insieme al token di sessione. Il token di refresh ha una durata maggiore rispetto al token di sessione, e può essere utilizzato solo per richiedere un nuovo token di sessione al servizio in oggetto, ogni volta che scade quello attualmente in uso.
+
+Questo servizio offre le funzionalità sopra descritte tramite un'interfaccia REST.
+
+I token di sessione utilizzati sono del tipo JWT (JSON Web Token) e sono composti da tre parti separate da un punto. La prima parte contiene le informazioni relative all'algoritmo di hashing utilizzato per la firma del token, la seconda parte contiene le informazioni relative all'utente autenticato e la terza parte contiene la firma del token.
+
+La scelta di utilizzare un token di sessione di tipo JWT rende il sistema \textbf{stateless}, ovvero non è necessario memorizzare alcuna informazione relativa alla sessione dell'utente, in quanto tutte le informazioni necessarie sono contenute nel token stesso.
+
+L'essere senza stato rende quindi molto semplice scalare orizzontalmente il sistema, in quanto non è necessario sincronizzare lo stato tra più istanze del servizio.
+
+\subsection{Riferimenti esterni}
+
+\begin{itemize}
+    \item \href{https://github.com/SWEasabi/authentication-micro-service}{codice sorgente del sistema di autenticazione};
+\end{itemize}
+
+\section{Architettura del sistema}
+
+Il sistema utilizza il paradigma dell'architettura esagonale, e più in dettaglio si attiene alla clean architecture.
+
+Il core del sistema si occupa della business logic ed offre:
+\begin{itemize}
+    \item Generazione dei JWT;
+    \item Refresh dei JWT;
+    \item Autenticazione degli utenti.
+\end{itemize}
+
+Le ports del sistema di autenticazione sono:
+\begin{itemize}
+    \item \textbf{REST}: si occupa di esporre le funzionalità del sistema di autenticazione tramite un'interfaccia REST;
+    \item \textbf{DB}: si occupa di interfacciarsi con il database per la memorizzazione dei dati;
+\end{itemize}
+
+Questi due sottosistemi architetturali sono uniti tramite degli adapter, che si occupano di interfacciare le ports con il core del sistema. Nel nostro glossario questi adapter sono chiamati \textbf{Service}.
+
+\section{Core del sistema}
+
+Il core del sistema è composto da 7 classi, che sono rappresentate nel diagramma delle classi \hyperref{fig:classi_auth}. Queste si occupano di implementare la business logic del sistema.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/classi_auth.png}
+    \caption{Diagramma delle classi del sistema di autenticazione}
+    \label{fig:classi_auth}
+\end{figure}
+
+%%Qui vanno definite le responsabilità di ogni classe.
+\begin{itemize}
+    \item \textbf{Authenticator:} si occupa dell'autenticazione dell'utente, verificando che l'username e la password fornite siano corrette.
+    \item \textbf{RefreshJwtBlacklister:} si occupa di inserire in una \textit{blacklist} i jwt di refresh che si vogliono rendere inutilizzabili.
+    \item \textbf{JwtExtractor:} si occupa di estrarre la mappa chiave-valore dal jwt. In particolare nel nostro caso serve estrarre l'username dell'utente.
+    \item \textbf{JwtIssuer:} si occupa della creazione e della rigenerazione dei jwt (access o refresh), inserendo al loro interno l'username dell'utente.
+    \item \textbf{JwtPackager:} si occupa della creazione e della firma di un generico jwt. Ha un tipo, una mappa chiave-valore e una scadenza.
+    \item \textbf{JwtVerifier:} si occupa di verificare che un jwt ricevuto sia valido, ovvero che abbia un determinato tipo (access o refresh), non sia ancora scaduto e che abbia la mappa chiave-valore.
+    \item \textbf{JwtAuthority:} si occupa di esporre le funzionalità dei jwt utilizzando le relative classi.
+\end{itemize}
+
+\subsection{I JWT}
+
+Il sistema generale è pensato per utilizzare due tipologie di Token. Viene utilizzato un token di autorizzazione, che viene utilizzato per l'autenticazione e per l'accesso alle risorse protette degli altri microservizi e un token di refresh, che viene utilizzato per la generazione di un nuovo token di autorizzazione.
+
+Ognuno dei microservizi del sistema accetta come valido un token generato da questo microservizio. Non accetterà però come valido un token di refresh.
+
+Il token di refresh viene infatti riconosciuto solamente da questo sistema.
+
+Il token di refresh ha durata di 2h, mentre il token di autorizzazione ha durata di 10 minuti.
+
+
+\section{Ports}
+
+Le ports del sistema di autenticazione sono due, e si occupano di interfacciare il core del sistema con l'esterno.
+
+È presente un'interfaccia REST, che espone le funzionalità del sistema di autenticazione tramite un'interfaccia REST, e un'interfaccia DB, che si occupa di interfacciarsi con il database per la memorizzazione dei dati.
+
+\section{Port Interfaccia REST}
+
+L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
+
+\begin{itemize}
+    \item POST /login
+    \item POST /logout
+    \item POST /refresh/refreshtoken
+    \item POST /refresh/accesstoken
+\end{itemize}
+
+\subsection{POST /login}
+
+Login permette di effettuare il login di un utente. L'utente deve fornire le credenziali di accesso, e il sistema risponderà con un token di autorizzazione e un token di refresh.
+
+Le credenziali vengono fornite sotto formato JSON nel body della richiesta, e devono essere composte da username e password.
+
+%TODO: aggiungere esempio di richiesta e risposta
+
+\subsection{POST /logout}
+
+Logout permette di effettuare il logout di un utente. L'utente deve fornire il token di refresh, e il sistema risponderà con un messaggio di conferma.
+
+Il sistema invalida il token di refresh fornito, e l'utente non potrà più utilizzarlo per generare nuovi token di autorizzazione.
+
+Per invalidarlo, il sistema lo inserisce in una blacklist, e non lo accetterà più come valido.
+
+Quando il token di refresh scade, il sistema lo rimuove dalla blacklist.
+
+\subsection{POST /refresh/refreshtoken}
+
+Refresh refreshtoken permette di generare un nuovo token di refresh. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di refresh.
+
+\subsection{POST /refresh/accesstoken}
+
+Refresh accesstoken permette di generare un nuovo token di autorizzazione. L'utente deve fornire il token di refresh, e il sistema risponderà con un nuovo token di autorizzazione.
+
+\section{Port Database}
+
+Il sistema utilizza un database per memorizzare i JWT di accesso in blackilist.
+
+Si immagina inoltre che il sistema utilizzi un database per memorizzare le credenziali degli utenti. Nella nostra versione attuale esistono però solamente due utenti e questi sono definiti all'interno del codice.
+
+%TODO: inserire progettazione del db
+%%Qui va inserita la progettazione del db con progettazione concettuale(chiaramente molto ridotta).
+
+%Va inoltre analizzato quale è il db migliore per gestire la coda fifo della blacklist. probabilmente un db non relazionale è più adatto. come mongoDB.
+
+
+\section{Adapters e Service in particolare}
+
+Gli adapters si occupano di interfacciare le ports con il core del sistema. Nel nostro glossario questi adapter sono chiamati \textbf{Service}. Questi sono i servizi che vengono esposti all'esterno oppure che vengono utilizzati all'interno del microservizio.
+
+\section{UserService}
+
+UserService si occupa di ottenere gli utenti e le loro credenziali. In particolare si occupa di ottenere le credenziali di un utente a partire dal suo username e di verificare che le credenziali fornite siano corrette.
+
+Al momento è presente solo un LocalUserService, che si occupa di ottenere le credenziali degli utenti dal codice. In futuro potrebbe essere implementato un RemoteUserService, che si occupa di ottenere le credenziali degli utenti da un altro microservizio oppure da un database.
+
+Questo risponde al caso d'uso \textbf{UC01: Autenticazione}.
+
+\section{BlacklistService}
+
+BlacklistService si occupa di inserire un token di refresh in blacklist e di verificare che un token di refresh non sia in blacklist.
+
+È presente un RemoteBlacklistService che utilizza la porta DB per gestire i token di refresh in blacklist. Si occupa quindi di inserire un token di refresh in blacklist e di verificare che un token di refresh non sia in blacklist.
+
+\section{KeysService}
+
+Il KeysService si occupa di fornire le chiavi utili a firmare e verificare i JWT. In particolare fornisce la chiave privata e la chiave pubblica.
+
+È presente un LocalKeysService che utilizza le chiavi presenti nel codice. In futuro potrebbe essere implementato un RemoteKeysService, che si occupa di ottenere le chiavi da un altro microservizio oppure da un database o qualsiasi altra implementazione.
