@@ -27,6 +27,13 @@ I componenti dell'applicazione, le interfacce utilizzate ed esposte e le funzion
     \label{fig:componenti_generali}
 \end{figure}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{img/architettura_generale.png}
+    \caption{Diagramma dell'architettura di sistema generale}
+    \label{fig:architettura_generale}
+\end{figure}
+
 \section{User interface}
 
 Come user Interface è stato scelto di utilizzare un'interfaccia web. Questa è stata scelta in quanto permette di avere un'interfaccia accessibile da qualsiasi dispositivo e non richiede l'installazione di software aggiuntivo. Inoltre, permette di avere un'interfaccia che può essere facilmente aggiornata e modificata.
@@ -44,4 +51,8 @@ Il business backend è il componente che si occupa di gestire la logica di busin
 La scelta di suddividere per responsabilità i microservizi serve a rispondere al requisito di vincolo \textbf{RV\_06}, ovvero che il sistema deve essere scalabile orizzontalmente. Questi Microservizi sono infatti inoltre anche gestiti in modo tale da rimanere stateless rispetto all'utente ed utilizzando per ciascuno un database separato. In caso di aumenti di carico del sistema è quindi semplicemente necessario aggiungere nuove istanze dei microservizi.
 
 Avendo poi basi di dati ridotte ed utilizzando però DBMS relazionali per via della loro facilità d'utilizzo non è necessario dover creare complesse strategie di sharding per la suddivisione del carico.
+
+\subsection{DNS}
+
+Per la struttura posta dietro alla REST based architecture, ci sarà bisogno di una definizione di nomi di dominio. Questa definizione è necessaria per poter utilizzare le risorse specifiche di ogni microservizio senza utilizzare un livello intermedio di API.
 
