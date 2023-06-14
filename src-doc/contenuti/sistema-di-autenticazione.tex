@@ -51,12 +51,12 @@ Questi due sottosistemi architetturali sono uniti tramite degli adapter, che si 
 
 \section{Core del sistema}
 
-Il core del sistema è composto da 7 classi, che sono rappresentate nel diagramma delle classi \hyperref{fig:classi_auth}. Queste si occupano di implementare la business logic del sistema.
+Il core del sistema è composto da 9 classi, che sono rappresentate nel diagramma delle classi alla figura \ref{fig:classi_auth}. Queste si occupano di implementare la business logic del sistema.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{img/classi_auth.png}
-    \caption{Diagramma delle classi del sistema di autenticazione}
+    \caption{Diagramma delle classi del core del microservizio di autenticazione}
     \label{fig:classi_auth}
 \end{figure}
 
@@ -89,6 +89,14 @@ Le ports del sistema di autenticazione sono due, e si occupano di interfacciare 
 È presente un'interfaccia REST, che espone le funzionalità del sistema di autenticazione tramite un'interfaccia REST, e un'interfaccia DB, che si occupa di interfacciarsi con il database per la memorizzazione dei dati.
 
 \section{Port Interfaccia REST}
+
+La porta rest si interfaccia al core del sistema tramite un'interfaccia chiamata \textbf{CoreAuthService}, che espone le funzionalità di autenticazione del core del microservizio, come si può vedere nel diagramma delle classi alla figura \Ref{fig:classi_portrest}.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{img/classi_portrest.png}
+    \caption{Diagramma delle classi della porta rest del microservizio di autenticazione}
+    \label{fig:classi_portrest}
+\end{figure}
 
 L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
 
