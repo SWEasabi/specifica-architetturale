@@ -1,10 +1,32 @@
-\chapter{Microservizio anagrafica}
+\chapter{Microservizio anagrafica}\label{cap:microservizio-anagrafica}
 
 \section{Scopo del sistema}
 
 Il sistema di anagrafica si occupa di gestire le informazioni anagrafiche dei sensori, delle aree e dei lampioni. Gestisce questi raggruppamenti e si occupa di renderli persistenti su database.
 
 \section{Requisiti coperti dal sistema}
+
+\subsection{RF\_03}
+RF\_03:deve essere possibile aggiungere nuovi sensori a sistema.
+
+Questo microservizio, copre il requisito peristendo i dati anagrafici del sensore.
+
+\subsection{RF\_08}
+RF\_08:l'utente deve poter inserire la locazione geografica del sensore nel sistema.
+
+Questo microservizio, copre il requisito peristendo i dati di locazione del sensore.
+
+\subsection{RF\_09}
+RF\_09:l'utente deve poter inserire il raggio di azione del sensore.
+
+Questo microservizio, copre il requisito peristendo i dati di raggio di azione del sensore.
+
+\subsection{RF\_10}
+RF\_10:l'utente deve poter essere in grado di visualizzare quali aree sono illuminate in un dato momento
+
+Questo microservizio, copre parte del requisito fornendo l'informazione di quali lampioni si trovano in una determinata area.
+
+
 
 \section{Descrizione del sistema}
 
@@ -15,7 +37,7 @@ Per queste informazioni ha inoltre il compito e la responsabilità di tenere agg
 
 \section{Architettura del sistema}
 
-L'architettura base del sistema è in MVVM. Non è presente la necessità di multi input e multi output, quindi non è necessario utilizzare un'architettura esagonale come nel caso del sistema di autenticazione.
+L'architettura base del sistema è in MVVM perché non è presente la necessità di multi input e multi output e un'architettura di altro tipo avrebbe aggiunto complessità inutile al sistema.
 
 I componenti del programma sono quindi divisi in tre parti: Model, View e ViewModel.
 
@@ -26,7 +48,7 @@ I componenti del programma sono quindi divisi in tre parti: Model, View e ViewMo
     \label{fig:general_anagrafe}
 \end{figure}
 
-
+\section{Model}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{img/model_anagrafe.png}
@@ -34,6 +56,8 @@ I componenti del programma sono quindi divisi in tre parti: Model, View e ViewMo
     \label{fig:model_anagrafe}
 \end{figure}
 
+\section{ViewModel}
 
+\section{View}
 
 
