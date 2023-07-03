@@ -137,6 +137,18 @@ MoveMeasurer permette di spostare un misuratore (che può essere un lampione o u
 
 Il sistema ritorna infine un boolean positivo in caso di successo, negativo in caso di fallimento.
 
+\section{Services}
+\subsection{DatabaseService}
+
+DatabaseService si occupa di effettuare tutte le operazioni di connessione e interazione con il database; in questo modo viene rispettato il principio di responsabilità singola.
+
+Sono presenti operazioni di Select, Delete, Insert e Update. In futuro può essere espandibile in base al tipo di operazione che si desidera fare.
+
+\subsection{DTOBuilderService}
+DTOBuilderService si occupa di creare i diversi DTO dell'applicazione, in questo caso Area, Lampione e Sensore, che verranno utilizzate all'interno dell'applicazione.
+
+\subsection{AccessKeysService}
+L'AccessKeysService si occupa di verificare che la chiave di accesso dell'utente non sia scaduta.
 
 \section{ViewModel}
 
