@@ -37,9 +37,13 @@ Per queste informazioni ha inoltre il compito e la responsabilità di tenere agg
 
 \section{Architettura del sistema}
 
-L'architettura base del sistema è in MVVM perché non è presente la necessità di multi input e multi output e un'architettura di altro tipo avrebbe aggiunto complessità inutile al sistema.
+L'architettura base del sistema è sviluppata in ottica KISS.
 
-I componenti del programma sono quindi divisi in tre parti: Model, View e ViewModel.
+Il sistema è composto da un'interfaccia rest che espone i dati e da un'insieme di classi che si occupano di gestire i dati nel database.
+
+Il servizio nasce molto semplice e per questo motivo non è stato ritenuto necessario l'utilizzo di un'architettura più complessa e strutturata.
+
+Ognuna delle classi rispetta però SOLID e soprattutto il principio di singola responsabilità.
 
 \begin{figure}[h]
     \centering
@@ -48,7 +52,20 @@ I componenti del programma sono quindi divisi in tre parti: Model, View e ViewMo
     \label{fig:general_anagrafe}
 \end{figure}
 
-\section{Model}
+\section{Servizi}
+
+\subsection{DatabaseService}
+
+DatabaseService si occupa di effettuare tutte le operazioni di connessione e interazione con il database; in questo modo viene rispettato il principio di responsabilità singola.
+
+Sono presenti operazioni di Select, Delete, Insert e Update. In futuro può essere espandibile in base al tipo di operazione che si desidera fare.
+
+\subsection{DTOBuilderService}
+DTOBuilderService si occupa di creare i diversi DTO dell'applicazione, in questo caso Area, Lampione e Sensore, che verranno utilizzate all'interno dell'applicazione.
+
+\subsection{AccessKeysService}
+L'AccessKeysService si occupa di verificare che la chiave di accesso dell'utente non sia scaduta.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{img/model_anagrafe.png}
@@ -56,13 +73,7 @@ I componenti del programma sono quindi divisi in tre parti: Model, View e ViewMo
     \label{fig:model_anagrafe}
 \end{figure}
 
-\begin{itemize}
-    \item \textbf{LampManager}: si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai lampioni nel database.
-    \item \textbf{SensorManager:} si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai sensori nel database. 
-    \item \textbf{AreaManager:} si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi alle aree nel database.
-\end{itemize}
-
-\section{Port Interfaccia REST}
+\section{Interfaccia REST}
 
 L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
 
@@ -137,21 +148,23 @@ MoveMeasurer permette di spostare un misuratore (che può essere un lampione o u
 
 Il sistema ritorna infine un boolean positivo in caso di successo, negativo in caso di fallimento.
 
-\section{Services}
-\subsection{DatabaseService}
+\section{Managers}
 
-DatabaseService si occupa di effettuare tutte le operazioni di connessione e interazione con il database; in questo modo viene rispettato il principio di responsabilità singola.
+Si occupano di fare da tramite tra il servizio che colloquia fisicamente con il DB e il controller che si occupa di gestire le richieste REST
 
-Sono presenti operazioni di Select, Delete, Insert e Update. In futuro può essere espandibile in base al tipo di operazione che si desidera fare.
+\begin{itemize}
+    \item \textbf{LampManager}: si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai lampioni nel database.
+    \item \textbf{SensorManager:} si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai sensori nel database. 
+    \item \textbf{AreaManager:} si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi alle aree nel database.
+\end{itemize}
 
-\subsection{DTOBuilderService}
-DTOBuilderService si occupa di creare i diversi DTO dell'applicazione, in questo caso Area, Lampione e Sensore, che verranno utilizzate all'interno dell'applicazione.
+\paragraph{LampManager}
 
-\subsection{AccessKeysService}
-L'AccessKeysService si occupa di verificare che la chiave di accesso dell'utente non sia scaduta.
+Ha la responsabilità di gestire l'inserimento e la rimozione di un lampione dal database, oltre che di ottenere i dati relativi a un lampione o a tutti i lampioni in un'area.
 
-\section{ViewModel}
+\paragraph{SensorManager}
 
-\section{View}
+Ha la responsabilità di gestire l'inserimento e la rimozione di un sensore dal database, oltre che di ottenere i dati relativi a un sensore o a tutti i sensori in un'area.
 
-
+\paragraph{AreaManager}
+Ha la responsabilità di gestire l'inserimento e la rimozione di un'area dal database, oltre che di ottenere i dati relativi a un'area o a tutte le aree.
