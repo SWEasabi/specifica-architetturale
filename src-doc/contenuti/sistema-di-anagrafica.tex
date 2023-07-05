@@ -150,7 +150,15 @@ Il sistema ritorna infine un boolean positivo in caso di successo, negativo in c
 
 \section{Managers}
 
-Si occupano di fare da tramite tra il servizio che colloquia fisicamente con il DB e il controller che si occupa di gestire le richieste REST
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/services_anagrafe.png}
+    \caption{Diagramma delle classi relative ai servizi del sistema di anagrafe}
+    \label{fig:services_anagrafe}
+\end{figure}
+
+Si occupano di fare da tramite tra il servizio che colloquia fisicamente con il DB e il controller che si occupa di gestire le richieste REST.
+Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:services_anagrafe}.
 
 \begin{itemize}
     \item \textbf{LampManager}: si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai lampioni nel database.
