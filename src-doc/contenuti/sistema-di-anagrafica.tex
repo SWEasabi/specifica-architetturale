@@ -33,49 +33,54 @@ Questo microservizio, copre parte del requisito fornendo l'informazione di quali
 Il sistema principalmente fornisce le informazioni stoccate su base dati tramite un'interfaccia rest.
 Questo è poi in grado di fornire i dati in forma aggregata, come ad esempio il numero di lampioni per area, o il numero di sensori per lampioni.
 
-Per queste informazioni ha inoltre il compito e la responsabilità di tenere aggiornati i dati nel database.
+Per queste informazioni ha inoltre il compito e la responsabilità di tenere aggiornati i dati nel database, organizzando i dati in modo da poterli fornire in modo efficiente.
 
 \section{Architettura del sistema}
 
 L'architettura base del sistema è sviluppata in ottica KISS.
 
-Il sistema è composto da un'interfaccia rest che espone i dati e da un'insieme di classi che si occupano di gestire i dati nel database.
+Il sistema è composto da un'interfaccia rest che espone i dati e da un insieme di classi che si occupano di gestire i dati nel database.
 
 Il servizio nasce molto semplice e per questo motivo non è stato ritenuto necessario l'utilizzo di un'architettura più complessa e strutturata.
 
-Ognuna delle classi rispetta però SOLID e soprattutto il principio di singola responsabilità.
+Ognuna delle classi rispetta però SOLID e soprattutto il principio della singola responsabilità.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{img/anagrafe_generale.png}
-    \caption{Vista generale del sistema di anagrafe}
+    \caption{Vista generale del sistema di anagrafe, si consiglia visione nel dettaglio delle immagini \ref{fig:services_anagrafe}, \ref{fig:manager_anagrafe} e \ref{fig:core_anagrafe}}
     \label{fig:general_anagrafe}
 \end{figure}
 
 \section{Servizi}
 
+I servizi sono in generale le interfaccie ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
+Questi si possono essere visionati nell'immagine \ref{fig:services_anagrafe}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/services_anagrafe.png}
+    \caption{Diagramma delle classi del modello all'interno del sistema di anagrafe}
+    \label{fig:services_anagrafe}
+\end{figure}
+
 \subsection{DatabaseService}
 
-DatabaseService si occupa di effettuare tutte le operazioni di connessione e interazione con il database; in questo modo viene rispettato il principio di responsabilità singola.
+DatabaseService si occupa di effettuare tutte le operazioni di connessione e interazione con il database. 
 
 Sono presenti operazioni di Select, Delete, Insert e Update. In futuro può essere espandibile in base al tipo di operazione che si desidera fare.
 
 \subsection{DTOBuilderService}
-DTOBuilderService si occupa di creare i diversi DTO dell'applicazione, in questo caso Area, Lampione e Sensore, che verranno utilizzate all'interno dell'applicazione.
+DTOBuilderService si occupa di creare i diversi DTO dell'applicazione, in questo caso Area, Lampione e Sensore, che verranno utilizzate all'interno dell'applicazione per muovere i dati tra le varie parti del sistema.
 
 \subsection{AccessKeysService}
-L'AccessKeysService si occupa di verificare che la chiave di accesso dell'utente non sia scaduta.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{img/model_anagrafe.png}
-    \caption{Diagramma delle classi del modello all'interno del sistema di anagrafe}
-    \label{fig:model_anagrafe}
-\end{figure}
+L'AccessKeysService si occupa di verificare che la chiave di accesso dell'utente non sia scaduta. Se la chiave è valida l'utente può utilizzare le varie funzionalità offerte dal microservizio.
 
 \section{Interfaccia REST}
 
 L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
+
+Questa interfaccia comunica al resto del sistema tramite il componente \textit{CORE} definito nella sezione \ref{sec:core}.
 
 \begin{itemize}
     \item GET /getLamp/id
@@ -152,13 +157,13 @@ Il sistema ritorna infine un boolean positivo in caso di successo, negativo in c
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{img/services_anagrafe.png}
+    \includegraphics[width=0.5\textwidth]{img/manager_anagrafe.png}
     \caption{Diagramma delle classi relative ai servizi del sistema di anagrafe}
-    \label{fig:services_anagrafe}
+    \label{fig:manager_anagrafe}
 \end{figure}
 
 Si occupano di fare da tramite tra il servizio che colloquia fisicamente con il DB e il controller che si occupa di gestire le richieste REST.
-Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:services_anagrafe}.
+Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:manager_anagrafe}.
 
 \begin{itemize}
     \item \textbf{LampManager}: si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai lampioni nel database.
@@ -176,3 +181,16 @@ Ha la responsabilità di gestire l'inserimento e la rimozione di un sensore dal 
 
 \paragraph{AreaManager}
 Ha la responsabilità di gestire l'inserimento e la rimozione di un'area dal database, oltre che di ottenere i dati relativi a un'area o a tutte le aree.
+
+\section{Core}\label{sec:core} L'interfaccia accentra tutte le funzionalità base del sistema rendendo semplice l'implementazione di nuove interfaccie esterne all'utente.
+
+Tutti i suoi metodi sono statici e permettono di ottenere i dati dal database in modo semplice e veloce.
+
+I metodi che questa componente offre sono visibili nel diagramma delle classi \ref{fig:core_anagrafe}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/core_anagrafe.png}
+    \caption{Diagramma delle classi relative al core del sistema di anagrafe}
+    \label{fig:core_anagrafe}
+\end{figure}
