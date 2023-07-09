@@ -23,3 +23,51 @@ RV\_05: l'applicazione client deve essere conforme almeno al livello AA delle WC
 
 
 \section{Descrizione del sistema}
+
+La webapp è stata sviluppata utilizzando il framework AngularJS, il quale permette di creare applicazioni web single-page e di gestire le dipendenze tra le varie componenti dell'applicazione. Inoltre, è stato utilizzato il framework Bootstrap per la gestione della parte grafica. L'applicazione utilizza componenti di Angular, servizi e chiamate API per comunicare con il server. Le principali features dell'applicazione sono:
+\begin{itemize}
+    \item Visualizzazione lista di lampioni, sensori ed aree;
+    \item Cambiare lo status dei lampioni e dei sensori;
+    \item Aggiungere lampioni,sensori ed aree;
+    \item Gestire caricamenti ed errori durante le chiamate API;
+    \item Implementare l'autenticazione;
+    \item Proteggere i collegamenti all'applicazione; 
+\end{itemize} 
+
+\section{Architettura del sistema}
+
+La classe Model implementa tre interfacce che definiscono lo status di lampioni,sensori ed aree, queste definiscono la struttura e forniscono le proprietà per immagazinare informazioni quali status,identificativo e alias.
+Le tre interfacce sono:
+\begin{itemize}
+    \item \textbf{LampStatus:} definisce lo stato di un lampione;
+    \item \textbf{SensorStatus:} definisce lo stato di un sensore;
+    \item \textbf{AreaStatus:} definisce lo stato di un'area;
+\end{itemize}
+
+La classe \textbf{Apiservice} definisce i metodi per effettuare le chiamate API e interagire con il server, questo servizio mette a dispozione i metodi per:
+\begin{itemize}
+    \item Ottenere la lista di lampioni, sensori ed aree;
+    \item Ottenere lo stato di un lampione, sensore o area;
+    \item Modificare lo stato di un lampione, sensore o area;
+    \item Aggiungere un lampione, sensore o area;
+    \item Ottenere i dati di un sensore;
+    \item Ottenere i dati di un'area;
+\end{itemize}
+
+I componenti utilizzati dall'applicazione sono:
+\begin{itemize}
+    \item \textbf{LampsListComponent:} visualizza la lista di lampioni;
+    \item \textbf{SensorsListComponent:} visualizza la lista di sensori;
+    \item \textbf{AreasListComponent:} visualizza la lista di aree;
+    \item \textbf{LampButtonComponent:} rappresenta un lampione della lista con il proprio stato e permette di modificarlo;
+    \item \textbf{SensorButtonComponent:} rappresenta un sensore della lista con il proprio stato e permette di modificarlo;
+    \item \textbf{AreaButtonComponent:} rappresenta un'area della lista con il proprio stato e permette di modificarlo;
+\end{itemize}
+
+L'applicazione presenta delle classi per l'utilizzo di altri microservizi:
+\begin{itemize}
+    \item \textbf{AuthService:} controlla l'autenticazione dell'utente;
+    \item \textbf{AppService:} gestisce lo stato dell'applicazione mantenedo lo status di lampioni, sensori ed aree, questo servizio fornisce i metodi per l'aggiunta di nuovi dispositivi e comunica con l'API per ottenere dati,aggiornare gli status e gestire caricamenti ed errori;
+\end{itemize}
+
+La classe \textbf{AuthGuard} permette di proteggere i collegamenti all'applicazione, in questo modo l'utente non autenticato non può accedere alle pagine dell'applicazione.
