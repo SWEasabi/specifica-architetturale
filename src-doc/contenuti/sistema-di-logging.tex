@@ -2,9 +2,20 @@
 
 \section{Scopo del sitema}
 
-Il sistema id logging serve per mantenere uno storico dei cambiamenti di stato e valore dei vari dispositivi.
-
+Il sistema id logging serve per mantenere uno storico dei cambiamenti di stato e valore dei vari dispositivi, in modo da poterli consultare in un secondo momento. 
 
 \section{Requisiti del sistema}
+
+\subsection{RF\_23}
+
+RF\_23:L'utente deve essere in grado di visualizzare gli stati dei dispositivi in un certo periodo di tempo.
+
+Questo microservizio, copre il requisito memorizzando gli stati dei dispositivi in un database.
+
 \section{Descrizione del sistema}
+Il sistema permette di leggere i dati storici degli stati dei dispositivi tramite un interfaccia rest. Rende quindi possibile la visione di un insieme di log con diverse opzioni, ad esempio in un certo periodo di tempo o gli ultimi n log.
+
 \section{Architettura del sistema}
+
+Il sistema è composta da un'interfaccia rest e un insieme di classi che si occupano di leggere i dati dal database.
+Il servizio nasce molto semplice e per questo motivo non è stato ritenuto necessario l'utilizzo di un'architettura più complessa e strutturata.
