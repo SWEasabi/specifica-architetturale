@@ -36,13 +36,21 @@ La webapp è stata sviluppata utilizzando il framework AngularJS, il quale perme
 
 \section{Architettura del sistema}
 
-La classe Model implementa tre interfacce che definiscono lo status di lampioni,sensori ed aree, queste definiscono la struttura e forniscono le proprietà per immagazinare informazioni quali status,identificativo e alias.
-Le tre interfacce sono:
+La classe Model implementa tre interfacce che definiscono lo status di lampioni,sensori ed aree, queste definiscono la struttura e forniscono le proprietà per immagazinare informazioni quali status,identificativo e alias. Le tre interfacce sono:
 \begin{itemize}
     \item \textbf{LampStatus:} definisce lo stato di un lampione;
     \item \textbf{SensorStatus:} definisce lo stato di un sensore;
     \item \textbf{AreaStatus:} definisce lo stato di un'area;
 \end{itemize}
+
+\subsection{Servizi}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/services_webapp.png}
+    \caption{Servizi della webapp \ref{fig:services_webapp}}
+    \label{fig:services_webapp}
+\end{figure}
 
 La classe \textbf{Apiservice} definisce i metodi per effettuare le chiamate API e interagire con il server, questo servizio mette a dispozione i metodi per:
 \begin{itemize}
@@ -53,6 +61,23 @@ La classe \textbf{Apiservice} definisce i metodi per effettuare le chiamate API 
     \item Ottenere i dati di un sensore;
     \item Ottenere i dati di un'area;
 \end{itemize}
+
+L'applicazione presenta delle classi per l'utilizzo di altri microservizi:
+\begin{itemize}
+    \item \textbf{AuthService:} controlla l'autenticazione dell'utente;
+    \item \textbf{AppService:} gestisce lo stato dell'applicazione mantenedo lo status di lampioni, sensori ed aree, questo servizio fornisce i metodi per l'aggiunta di nuovi dispositivi e comunica con l'API per ottenere dati,aggiornare gli status e gestire caricamenti ed errori;
+\end{itemize}
+
+La classe \textbf{AuthGuard} permette di proteggere i collegamenti all'applicazione, in questo modo l'utente non autenticato non può accedere alle pagine dell'applicazione.
+
+\subsection{Componenti}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/components_webapp.png}
+    \caption{Componenti della webapp \ref{fig:components_webapp}}
+    \label{fig:components_webapp}
+\end{figure}
 
 L'applicazione utilizza dei componenti per definire e gestire le varie parti dell'applicazione, questi sono:
 \begin{itemize}
@@ -65,11 +90,3 @@ L'applicazione utilizza dei componenti per definire e gestire le varie parti del
     \item \textbf{authentication.component:} gestitsce l'autenticazione dell'utente;
     \item \textbf{private-area.component:} gestisce l'area privata;
 \end{itemize}
-
-L'applicazione presenta delle classi per l'utilizzo di altri microservizi:
-\begin{itemize}
-    \item \textbf{AuthService:} controlla l'autenticazione dell'utente;
-    \item \textbf{AppService:} gestisce lo stato dell'applicazione mantenedo lo status di lampioni, sensori ed aree, questo servizio fornisce i metodi per l'aggiunta di nuovi dispositivi e comunica con l'API per ottenere dati,aggiornare gli status e gestire caricamenti ed errori;
-\end{itemize}
-
-La classe \textbf{AuthGuard} permette di proteggere i collegamenti all'applicazione, in questo modo l'utente non autenticato non può accedere alle pagine dell'applicazione.
