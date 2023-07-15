@@ -19,3 +19,19 @@ Il sistema permette di leggere i dati storici degli stati dei dispositivi tramit
 
 Il sistema è composta da un'interfaccia rest e un insieme di classi che si occupano di leggere i dati dal database.
 Il servizio nasce molto semplice e per questo motivo non è stato ritenuto necessario l'utilizzo di un'architettura più complessa e strutturata.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{img/classi_logging.png}
+    \caption{Vista generale del sistema di logging}
+    \label{fig:general_logging}
+\end{figure}
+
+\section{Servizi}
+
+I servizi sono in generale le interfaccie ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
+
+\subsection{ReaderService}
+ReaderService si occupa di leggere e fornire i dati dei log dal database in base alla richiesta.
+
+\section{Interfaccia REST}
