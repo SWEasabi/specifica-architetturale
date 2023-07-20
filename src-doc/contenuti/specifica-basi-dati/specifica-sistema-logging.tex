@@ -8,4 +8,33 @@ L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligen
 
 \subsection{Progettazione concettuale}
 
+\subsubsection{Analisi delle entità}
+
+\textbf{Se non specificato l'attributo è NOT NULL}
+
+%LOG
+\begin{center}
+    \begin{tabularx}{\textwidth}{|l|l|l|X|}
+        \hline
+        \rowcolor{gray!30}
+        \multicolumn{4}{|c|}{\textbf{LOG}}\\
+        \hline
+        idMisuratore & INTEGER & Identifica univocamente, insieme a {\it{time}}, un log & Chiave\\
+        \hline
+        time & LONG & Indica quando c'è stata una variazione ad un lampione o ad un sensore & Chiave\\
+        \hline
+        valore & INTEGER & \multicolumn{2}{l|}{Nel caso di un sensore, indica se è in grado di rilevare persone oppure no} \\
+        & & \multicolumn{2}{l|}{Nel caso di un lampione, indica il suo valore di luminosità} \\
+        \hline
+        tipo & VARCHAR(50) & \multicolumn{2}{l|}{Indica se il sistema sta facendo riferimento ad un sensore oppure ad un lampione} \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+\subsubsection{Schema ER concettuale}
+
+\begin{center}
+    \includegraphics[width=12cm]{contenuti/specifica-basi-dati/img-sbd/logging_concettuale.png}
+\end{center}
+
 \subsection{Progettazione logica}
