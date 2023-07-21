@@ -21,7 +21,7 @@ L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligen
         \hline
         idMisuratore & INTEGER & Identifica univocamente, insieme a {\it{time}}, un log & Chiave\\
         \hline
-        time & LONG & Indica quando c'è stata una variazione ad un lampione o ad un sensore & Chiave\\
+        istanteModifica & LONG & Indica quando c'è stata una variazione ad un lampione o ad un sensore & Chiave\\
         \hline
         valore & INTEGER & \multicolumn{2}{l|}{Nel caso di un sensore, indica se è in grado di rilevare persone oppure no} \\
         & & \multicolumn{2}{l|}{Nel caso di un lampione, indica il suo valore di luminosità} \\
@@ -34,7 +34,7 @@ L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligen
 \subsubsection{Schema ER concettuale}
 
 \begin{center}
-    \includegraphics[width=12cm]{contenuti/specifica-basi-dati/img-sbd/logging_concettuale.png}
+    \includegraphics[width=4.5cm]{contenuti/specifica-basi-dati/img-sbd/logging_concettuale.png}
 \end{center}
 
 \subsection{Progettazione logica}
