@@ -1,0 +1,46 @@
+\chapter{Sistema di coordinazione}\label{cap:sistema-coordinazione}
+
+\section{Scopo del sistema}
+Il sistema di coordinazione è il componente che si occupa di gestire i lampioni, regolandone l'accensione e lo spegnimento in base alle informazioni che ha a disposizione.\\
+
+Tramite algoritmi sofisticati, il sistema di coordinazione è in grado di gestire l'illuminazione in modo efficiente.
+
+\subsection{Requisiti coperti dal sistema}
+
+\subsubsection{RF\_05}
+
+RF\_05: Il sistema deve accendere un'area per un lasso di tempo preconfigurato quando rileva persone in prossimità dello stesso.
+
+\subsubsection{RF\_06}
+
+RF\_06: Il sistema deve riportare l'intensità luminosa dell'area al valore di default una volta passato il tempo impostato.
+
+\subsubsection{RF\_19}
+
+RF\_19: Il sistema deve essere in grado di ricevere informazioni dal sensore in modalità push.
+
+\section{Descrizione del sistema}
+
+Il sistema utilizza molteplici paradigmi. L'architettura generale è di tipo esagonale.
+
+Il programma eseguirà azioni quando attivato da eventi esterni, quali l'arrivo di un nuovo stato da mqtt oppure l'arrivo di una richiesta da parte dell'utente collegato alla webapp\footnote{Vedi sezione \ref{cap:webapp}}.
+
+Le componenti principali saranno:
+
+\begin{itemize}
+    \item \textbf{Porta ricevente MQTT}: si occupa di ricevere i messaggi da MQTT e di inoltrarli al sistema ad eventi;
+    \item \textbf{Interfaccia REST}: si occupa di ricevere le richieste degli utenti e di inoltrarle al sistema ad eventi;
+    \item \textbf{Pila di payload}: É una pila contenente i payload di dati da analizzare;
+    \item \textbf{Algoritmo di analisi}: Dato un payload si occupa di analizzarlo e di generare un nuovo stato;
+\end{itemize}
+
+La pila di Payload usa il paradigma del \textbf{Producer-Consumer}, in cui il produttore è la porta ricevente, mentre il consumatore è l'algoritmo di analisi.
+
+É poi presente un database\footnote{Vedi sezione relativo al database e alla sua progettazione \ref{cap:db-sistema-coordinatore}} al quale il sistema si connette, per mantenere gli stati anche in caso di reboot del sistema.
+
+Inoltre, se il programma farà comunque del caching dei dati, sarà comunque nel database che verranno depositati i dati quando la cache diventa troppo grande.
+
+\section{Architettura del sistema}
+
+%TODO: Michele
+

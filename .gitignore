@@ -9,3 +9,4 @@ src-doc/*.pdf
 *.toc
 *.mtc*
 *.maf
+src-doc/d_specifica-architetturale.lof
