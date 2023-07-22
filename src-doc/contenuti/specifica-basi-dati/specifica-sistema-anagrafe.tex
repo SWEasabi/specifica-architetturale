@@ -22,9 +22,9 @@ Per evitare di accorpare le entità Sensore e Lampione nell'entità padre Misura
 
 Tutte le chiavi primarie sono definite utilizzando le chiavi della progettazione concettuale, tranne nei seguenti casi.
 
-\paragraph{Sensore} Diventando il Sensore un'entità a sé stante, vengono aggiunte una chiave primaria ed una chiave esterna che indica il Misuratore a cui fa riferimento.
+\paragraph{Sensore} Diventando il Sensore un'entità a sé stante, viene aggiunta una chiave esterna, che fungerà anche da chiave primaria, che indica il Misuratore a cui fa riferimento.
 
-\paragraph{Lampione} Diventando il Lampione un'entità a sé stante, vengono aggiunte una chiave primaria ed una chiave esterna che indica il Misuratore a cui fa riferimento.
+\paragraph{Lampione} Diventando il Lampione un'entità a sé stante, viene aggiunta una chiave esterna, che fungerà anche da chiave primaria, che indica il Misuratore a cui fa riferimento.
 
 \subsubsection{Schema concettuale ristrutturato - Schema Logico}
 
@@ -39,8 +39,8 @@ La chiave primaria è indicata in \textbf{grassetto}, le chiavi esterne sono ind
 
 \textit{Area}(\textbf{id}, nome, autoMode, lvlInf, lvlSup) \\
 \textit{Misuratore}(\textbf{id}, \underline{idArea}, tipo, latitudine, longitudine) \\
-\textit{Sensore}(\textbf{id}, \underline{idMisuratore}, raggio) \\
-\textit{Lampione}(\textbf{id}, \underline{idMisuratore}, wattaggio)
+\textit{Sensore}(\underline{\textbf{idMisuratore}}, raggio) \\
+\textit{Lampione}(\underline{\textbf{idMisuratore}}, wattaggio)
 
 \subsubsection{Vincoli di integrità referenziali}
 
