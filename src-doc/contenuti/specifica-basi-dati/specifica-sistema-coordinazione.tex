@@ -8,6 +8,37 @@ Il sistema si collegherà ad altre componenti esterne, utilizzando algoritmi pro
 
 \subsection{Analisi dei requisiti}
 
+\subsubsection{Descrizione testuale}
+
+Il microservizio per funzionare correttamente avrà bisogno di salvare lo stato dei lampioni per controllare che non vengano fatte modifiche con tempistiche troppo ravvicinate, e inoltre vengono memorizzati la luminosità e l'istante dell'ultima modifica di un lampione. 
+
+\subsubsection{Glossario dei termini}
+
+Per evitare ambiguità relative alle terminologie utilizzate è stato creato un documento denominato \textit{Glossario}.
+
+Questo documento contiene tutti i termini specifici di settore utilizzati nei documenti, con le relative definizioni.
+
+\subsubsection{Operazioni tipiche}
+
+Le operazioni tipiche che ci si aspetta di avere sono:
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \rowcolor{gray!30}
+        \multicolumn{2}{|c|}{\textbf{OPERAZIONI TIPICHE}}
+        \\
+        \hline
+        \rowcolor{gray!30}
+        \textbf{{DESCRIZIONE}} & \textbf{{FREQUENZA D'USO}} \\
+        \hline
+        Lettura dello stato in cui si trova il lampione & Molte volte \\
+        \hline
+        Scrittura dello stato di un lampione & Molte volte\\
+        \hline
+    \end{tabularx}
+\end{center}
+
 \subsection{Progettazione concettuale}
 
 \subsubsection{Analisi delle entità}

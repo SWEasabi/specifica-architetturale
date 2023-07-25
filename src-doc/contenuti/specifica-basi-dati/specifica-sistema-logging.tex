@@ -6,6 +6,44 @@ L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligen
 
 \subsection{Analisi dei requisiti}
 
+\subsubsection{Descrizione testuale}
+
+Il microservizio per funzionare correttamente avrà bisogno di memorizzare ogni cambiamento, denominato {\it{log}}, a lungo termine. Dei {\it{log}} ci interessa:
+
+\begin{itemize}
+    \item l'id del misuratore che ha cambiato stato;
+    \item l'istante in cui la modifica è  stata effettuata;
+    \item il valore del log, che cambia a seconda che la modifica avvenga ad un sensore oppure ad un lampione;
+    \item la tipologia di log.
+\end{itemize}
+
+\subsubsection{Glossario dei termini}
+
+Per evitare ambiguità relative alle terminologie utilizzate è stato creato un documento denominato \textit{Glossario}.
+
+Questo documento contiene tutti i termini specifici di settore utilizzati nei documenti, con le relative definizioni.
+
+\subsubsection{Operazioni tipiche}
+
+Le operazioni tipiche che ci si aspetta di avere sono:
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \rowcolor{gray!30}
+        \multicolumn{2}{|c|}{\textbf{OPERAZIONI TIPICHE}}
+        \\
+        \hline
+        \rowcolor{gray!30}
+        \textbf{{DESCRIZIONE}} & \textbf{{FREQUENZA D'USO}} \\
+        \hline
+        Lettura di molteplici log aggregati per l'estrazione dei trend & Molte volte \\
+        \hline
+        Scrittura del log & Molte volte\\
+        \hline
+    \end{tabularx}
+\end{center}
+
 \subsection{Progettazione concettuale}
 
 \subsubsection{Analisi delle entità}

@@ -8,6 +8,53 @@ Queste informazioni sono particolarmente utili per contestualizzare ognuna delle
 
 \subsection{Analisi dei requisiti}
 
+\subsubsection{Descrizione testuale}
+
+Il microservizio di anagrafe ha bisogno di memorizzare, per poter funzionare correttamente, i seguenti dati:
+
+\begin{itemize}
+    \item le aree, in particolare le informazioni;
+    \item i lampioni e le loro informazioni, ovvero posizione e consumo energetico;
+    \item i sensori e le loro informazioni, ovvero posizione e raggio d'azione.
+\end{itemize}
+
+Inoltre per i misuratori, ovvero lampioni e sensori, viene salvata anche l'area di appartenenza.
+
+\subsubsection{Glossario dei termini}
+
+Per evitare ambiguità relative alle terminologie utilizzate è stato creato un documento denominato \textit{Glossario}.
+
+Questo documento contiene tutti i termini specifici di settore utilizzati nei documenti, con le relative definizioni.
+
+\subsubsection{Operazioni tipiche}
+
+Le operazioni tipiche che ci si aspetta di avere sono:
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \rowcolor{gray!30}
+        \multicolumn{2}{|c|}{\textbf{OPERAZIONI TIPICHE}}
+        \\
+        \hline
+        \rowcolor{gray!30}
+        \textbf{{DESCRIZIONE}} & \textbf{{FREQUENZA D'USO}} \\
+        \hline
+        Quanti lampioni si trovano all'interno di un'area & Poche volte \\
+        \hline
+        Quali lampioni si trovano all'interno di un'area & Molte volte\\
+        \hline
+        Il sensore X che lampioni controlla? & Molte volte \\
+        \hline
+        Aggiunta di un'area & Poche volte\\
+        \hline
+        Aggiunta di un lampione ad un'area & Medie volte \\
+        \hline
+        Aggiunta di un sensore ad un'area & Medie volte\\
+        \hline
+    \end{tabularx}
+\end{center}
+
 \subsection{Progettazione concettuale}
 
 \subsubsection{Analisi delle entità}
