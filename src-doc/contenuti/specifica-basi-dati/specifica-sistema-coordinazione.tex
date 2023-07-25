@@ -1,4 +1,4 @@
-\section{Base di dati sistema coordinazione}
+\section{Base di dati sistema coordinazione}\label{sec:sbd-sistema-coordinazione}
 
 \subsection{Abstract}
 
@@ -68,3 +68,16 @@ Le operazioni tipiche che ci si aspetta di avere sono:
 \end{center}
 
 \subsection{Progettazione logica}
+
+\subsubsection{Schema concettuale ristrutturato - Schema Logico}
+
+\begin{center}
+    \includegraphics[width=4.5cm]{contenuti/specifica-basi-dati/img-sbd/coordinazione_logico.png}
+\end{center}
+
+\subsubsection{Descrizione schema relazionale}
+
+Per questione di compatibilità con il DBMS alcuni nomi di attributi entità e relazioni sono stati normalizzati, utilizzando il camelCase, togliendo gli accenti, accorciando i nomi molto lunghi e con altre piccole accortezze.
+La chiave primaria è indicata in \textbf{grassetto}, le chiavi esterne sono indicate con la \underline{sottolineatura}.
+
+\textit{Lampione}(\textbf{id}, luminosita, lastSync)
