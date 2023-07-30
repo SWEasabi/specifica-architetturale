@@ -120,6 +120,8 @@ Le operazioni tipiche che ci si aspetta di avere sono:
         \rowcolor{gray!30}
         \multicolumn{3}{|c|}{\textbf{LAMPIONE}}\\
         \hline
+        luminosita & INTEGER & Livello di luminosità in cui si trova il lampione \\
+        \hline
         wattaggio & INTEGER & Consumo energetico del lampione \\
         \hline
     \end{tabularx}
@@ -180,7 +182,7 @@ La chiave primaria è indicata in \textbf{grassetto}, le chiavi esterne sono ind
 \textit{Area}(\textbf{id}, nome, autoMode, lvlInf, lvlSup) \\
 \textit{Misuratore}(\textbf{id}, \underline{idArea}, tipo, latitudine, longitudine) \\
 \textit{Sensore}(\underline{\textbf{idMisuratore}}, raggio) \\
-\textit{Lampione}(\underline{\textbf{idMisuratore}}, wattaggio)
+\textit{Lampione}(\underline{\textbf{idMisuratore}}, luminosita, wattaggio)
 
 \subsubsection{Vincoli di integrità referenziali}
 

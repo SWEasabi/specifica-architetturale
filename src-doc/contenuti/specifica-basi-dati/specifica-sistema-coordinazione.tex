@@ -39,45 +39,6 @@ Le operazioni tipiche che ci si aspetta di avere sono:
     \end{tabularx}
 \end{center}
 
-\subsection{Progettazione concettuale}
+\subsection{Progettazione concettuale e progettazione logica}
 
-\subsubsection{Analisi delle entità}
-
-\textbf{Se non specificato l'attributo è NOT NULL}
-
-%LAMPIONE
-\begin{center}
-    \begin{tabularx}{\textwidth}{|l|l|l|X|}
-        \hline
-        \rowcolor{gray!30}
-        \multicolumn{4}{|c|}{\textbf{LAMPIONE}}\\
-        \hline
-        id & INTEGER & Identifica univocamente un lampione all'interno del sistema & Chiave\\
-        \hline
-        luminosita & INTEGER & \multicolumn{2}{l|}{Livello di luminosità in cui si trova il lampione} \\
-        \hline
-        istanteUltimaModifica & LONG & \multicolumn{2}{l|}{Indica quando c'è stata l'ultima variazione di luminosità ad un lampione} \\
-        \hline
-    \end{tabularx}
-\end{center}
-
-\subsubsection{Schema ER concettuale}
-
-\begin{center}
-    \includegraphics[width=4.5cm]{contenuti/specifica-basi-dati/img-sbd/coordinazione_concettuale.png}
-\end{center}
-
-\subsection{Progettazione logica}
-
-\subsubsection{Schema concettuale ristrutturato - Schema Logico}
-
-\begin{center}
-    \includegraphics[width=4.5cm]{contenuti/specifica-basi-dati/img-sbd/coordinazione_logico.png}
-\end{center}
-
-\subsubsection{Descrizione schema relazionale}
-
-Per questione di compatibilità con il DBMS alcuni nomi di attributi entità e relazioni sono stati normalizzati, utilizzando il camelCase, togliendo gli accenti, accorciando i nomi molto lunghi e con altre piccole accortezze.
-La chiave primaria è indicata in \textbf{grassetto}, le chiavi esterne sono indicate con la \underline{sottolineatura}.
-
-\textit{Lampione}(\textbf{id}, luminosita, lastSync)
+In seguito alla riunione dei progettisti del 30/07\footnote{vedasi verbale VIN\_20230730}, il sistema di coordinazione non avrà un database "indipendente" ma utilizzerà, a seconda dell'operazione richiesta, il database del sistema di anagrafe e quello del sistema di logging.
