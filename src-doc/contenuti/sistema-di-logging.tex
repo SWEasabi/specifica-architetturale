@@ -22,10 +22,13 @@ Il servizio nasce molto semplice e per questo motivo non è stato ritenuto neces
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{img/classi_logging.png}
+    \includegraphics[width=0.6\textwidth]{img/classi_logging.png}
     \caption{Vista generale del sistema di logging}
     \label{fig:general_logging}
 \end{figure}
+
+\section{Repository}
+Il LogRepository è un'interfaccia repository jpa ed esegue fisicaente le operazioni sul database.
 
 \section{Servizi}
 
@@ -34,4 +37,30 @@ I servizi sono in generale le interfaccie ad alto livello delle funzionalità de
 \subsection{ReaderService}
 ReaderService si occupa di leggere e fornire i dati dei log dal database in base alla richiesta.
 
+ReaderService viene realizzata in localReaderService per i test. Invece per connettersi al db viene utilizzata la classe DatabaseReaderService.
+
+\section{Core}
+Il core è il nucleo del sistema ed in generale si pone come facade per tutti i servizi che si trovano all'interno del microservizio. Questa classe si occupa di gestire le richieste e di fornire i dati richiesti.
+Principalmente questa classe viene utilizzata dall'interfaccia REST.
+
+\section{Log}
+La classe Log viene utilizzata per trasferire le informazioni tra le varie classi ed è costruito da logrepository quando fa operazioni sul database e deve ritornarne uno.
+
+\section{JsonBuilderService}
+Si occupa di creare i json da ritornare all'interfaccia rest a partire dai log.
+
+\section{ Config}
+La classe Cofig genera i bean che servono alle altre classi per funzionare.
+
+
+
 \section{Interfaccia REST}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/classi_logging_port_rest.png}
+    \caption{Vista generale del sistema di logging}
+    \label{fig:general_logging}
+\end{figure}
+
+
