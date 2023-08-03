@@ -59,8 +59,27 @@ La classe Config genera i bean che servono alle altre classi per funzionare.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{img/classi_logging_port_rest.png}
-    \caption{Vista generale del sistema di logging}
-    \label{fig:general_logging}
+    \caption{Vista delle classi che si occupano dell'interfaccia rest}
+    \label{fig:rest_logging}
 \end{figure}
+
+\begin{itemize}
+    \item GET /log/last/{idMisuratore}
+    \item GET /log/last50/{idMisuratore}
+    \item GET /log/all/{idMisuratore}
+    \item GET /log/dates/{start}/{end}
+\end{itemize}
+
+\subsection{GET /log/last/{idMisuratore}}
+Get /log/last/{idMisuratore} ritorna l'ultimo log del dispositivo con id idMisuratore.
+
+\subsection{GET /log/last50/{idMisuratore}}
+Get /log/last50/{idMisuratore} ritorna gli ultimi 50 log del dispositivo con id idMisuratore.
+
+\subsection{GET /log/all/{idMisuratore}}
+Get /log/all/{idMisuratore} ritorna tutti i log del dispositivo con id idMisuratore.
+
+\subsection{GET /log/dates/{start}/{end}}
+Get /log/dates/{start}/{end} ritorna tutti i log compresi tra start e end.
 
 
