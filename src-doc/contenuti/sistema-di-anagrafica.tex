@@ -45,10 +45,10 @@ Il servizio nasce molto semplice e per questo motivo non è stato ritenuto neces
 
 Ognuna delle classi rispetta però SOLID e soprattutto il principio della singola responsabilità.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{img/anagrafe_generale.png}
-    \caption{Vista generale del sistema di anagrafe, si consiglia visione nel dettaglio delle immagini \ref{fig:services_anagrafe}, \ref{fig:manager_anagrafe} e \ref{fig:core_anagrafe}}
+    \caption{Vista generale del sistema di anagrafe, si consiglia visione nel dettaglio delle immagini \ref{fig:services_anagrafe}, \ref{fig:managers_anagrafe} e \ref{fig:core_anagrafe}}
     \label{fig:general_anagrafe}
 \end{figure}
 
@@ -57,7 +57,7 @@ Ognuna delle classi rispetta però SOLID e soprattutto il principio della singol
 I servizi sono in generale le interfacce ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
 Questi si possono essere visionati nell'immagine \ref{fig:services_anagrafe}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{img/services_anagrafe.png}
     \caption{Diagramma delle classi del modello all'interno del sistema di anagrafe}
@@ -155,15 +155,15 @@ Il sistema ritorna infine un boolean positivo in caso di successo, negativo in c
 
 \section{Managers}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{img/manager_anagrafe.png}
+    \includegraphics[width=0.5\textwidth]{img/managers_anagrafe.png}
     \caption{Diagramma delle classi relative ai servizi del sistema di anagrafe}
-    \label{fig:manager_anagrafe}
+    \label{fig:managers_anagrafe}
 \end{figure}
 
 Si occupano di fare da tramite tra il servizio che colloquia fisicamente con il DB e il controller che si occupa di gestire le richieste REST.
-Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:manager_anagrafe}.
+Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:managers_anagrafe}.
 
 \begin{itemize}
     \item \textbf{LampManager}: si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai lampioni nel database.
@@ -188,7 +188,7 @@ Tutti i suoi metodi sono statici e permettono di ottenere i dati dal database in
 
 I metodi che questa componente offre sono visibili nel diagramma delle classi \ref{fig:core_anagrafe}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{img/core_anagrafe.png}
     \caption{Diagramma delle classi relative al core del sistema di anagrafe}
