@@ -8,7 +8,7 @@ Il sistema di logging serve per mantenere uno storico dei cambiamenti di stato e
 
 \subsection{RF\_23}
 
-RF\_23:L'utente deve essere in grado di visualizzare gli stati dei dispositivi in un certo periodo di tempo.
+RF\_23: L'utente deve essere in grado di visualizzare gli stati dei dispositivi in un certo periodo di tempo.
 
 Questo microservizio, copre il requisito memorizzando gli stati dei dispositivi in un database.
 
@@ -17,7 +17,7 @@ Il sistema permette di leggere i dati storici degli stati dei dispositivi tramit
 
 \section{Architettura del sistema}
 
-Il sistema è composta da un'interfaccia rest e un insieme di classi che si occupano di leggere i dati dal database.
+Il sistema è composto da un'interfaccia REST e un insieme di classi che si occupano di leggere i dati dal database.
 Il servizio nasce molto semplice e per questo motivo non è stato ritenuto necessario l'utilizzo di un'architettura più complessa e strutturata.
 
 \begin{figure}[ht]
@@ -28,11 +28,11 @@ Il servizio nasce molto semplice e per questo motivo non è stato ritenuto neces
 \end{figure}
 
 \section{Repository}
-Il LogRepository è un'interfaccia repository jpa ed esegue fisicamente le operazioni sul database.
+Il LogRepository è un'interfaccia repository JPA ed esegue fisicamente le operazioni sul database.
 
 \section{Servizi}
 
-I servizi sono in generale le interfaccie ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
+I servizi sono in generale le interfacce ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
 
 \subsection{ReaderService}
 ReaderService si occupa di leggere e fornire i dati dei log dal database in base alla richiesta.
@@ -47,7 +47,7 @@ Principalmente questa classe viene utilizzata dall'interfaccia REST.
 La classe Log viene utilizzata per trasferire le informazioni tra le varie classi ed è costruito da logrepository quando fa operazioni sul database e deve ritornarne uno.
 
 \section{JsonBuilderService}
-Si occupa di creare i json da ritornare all'interfaccia rest a partire dai log.
+Si occupa di creare i JSON da ritornare all'interfaccia REST a partire dai log.
 
 \section{ Config}
 La classe Config genera i bean che servono alle altre classi per funzionare.

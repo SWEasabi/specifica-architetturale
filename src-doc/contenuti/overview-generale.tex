@@ -4,14 +4,14 @@
 
 Per la definizione di questo sistema software è stato scelto di utilizzare un'architettura a microservizi, in quanto permette di avere un sistema scalabile e flessibile. Il pattern topologico scelto è quello REST.
 
-Sono presenti all'interno del sistema due parti principali. Una parte è dedicata all'interazione con l'utente, l'altra parte è dedicata alla gestione dei dati e della logica di business, tra cui la comunicazione con i sistemi esterni quali lampioni, sensori e api meteo.
+Sono presenti all'interno del sistema due parti principali. Una parte è dedicata all'interazione con l'utente, l'altra parte è dedicata alla gestione dei dati e della logica di business, tra cui la comunicazione con i sistemi esterni quali lampioni, sensori e API meteo.
 
 Ognuna delle responsabilità del sistema è stata suddivisa in un microservizio come segue:
 
 \begin{itemize}
     \item \textbf{WebApplication}: è il microservizio che si occupa di gestire l'interazione con l'utente;
     \item \textbf{Anagrafica}: è il microservizio che si occupa di gestire i dati anagrafici dei lampioni, dei gruppi e delle aree in cui questi sono collocati;
-    \item \textbf{Coordinazione}: è il microservizio che si occupa di gestire l'accensione e lo spegnimento dei lampioni secondo regole specifiche e utilizzando le informazioni provenienti dai sensori e da api varie per ottimizzare l'illuminazione;
+    \item \textbf{Coordinazione}: è il microservizio che si occupa di gestire l'accensione e lo spegnimento dei lampioni secondo regole specifiche e utilizzando le informazioni provenienti dai sensori e da API varie per ottimizzare l'illuminazione;
     \item \textbf{Autenticazione}: è il microservizio che si occupa di gestire l'autenticazione degli utenti e di fornire i token necessari per l'accesso agli altri servizi;
     \item \textbf{logging}: è il microservizio che si occupa di gestire i log dei lampioni e dei sensori. Da questi, inoltre, vengono estratte informazioni necessarie per la gestione dell'illuminazione e più in generale aggregazioni di dati utli per l'analisi e la presentazione all'utente.
 \end{itemize}
@@ -30,9 +30,9 @@ I componenti dell'applicazione, le interfacce utilizzate ed esposte e le funzion
 
 \section{User interface}
 
-Come user Interface è stato scelto di utilizzare un'interfaccia web. Questa è stata scelta in quanto permette di avere un'interfaccia accessibile da qualsiasi dispositivo e non richiede l'installazione di software aggiuntivo. Inoltre, permette di avere un'interfaccia che può essere facilmente aggiornata e modificata.
+Come User Interface è stato scelto di utilizzare un'interfaccia web. Questa è stata scelta in quanto permette di avere un'interfaccia accessibile da qualsiasi dispositivo e non richiede l'installazione di software aggiuntivo. Inoltre, permette di avere un'interfaccia che può essere facilmente aggiornata e modificata.
 
-Per l'implementazione é stato scelto di utilizzare il framework Angular.
+Per l'implementazione è stato scelto di utilizzare il framework Angular.
 
 La scelta di utilizzare una webapp come interfaccia utente risponde inoltre ai requisiti di vincolo: \textbf{RV\_01}, \textbf{RV\_02}, \textbf{RV\_03}, \textbf{RV\_04}, \textbf{RV\_05}.
 

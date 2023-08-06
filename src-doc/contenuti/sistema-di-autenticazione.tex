@@ -13,7 +13,7 @@ RF\_01: Il sistema deve mostrare un messaggio d'errore esplicativo all'utente in
 Questo microservizio, copre il requisito inviando un messaggio di errore in caso di autenticazione non valida.
 
 \subsection{RF\_07}
-RF\_07: l'utente deve effettuare l'accesso per poter utilizzare le funzionalità del sistema
+RF\_07: l'utente deve effettuare l'accesso per poter utilizzare le funzionalità del sistema.
 
 Questo microservizio, copre il requisito permettendo solo a chi è autenticato di utilizzare le funzionalità dei vari microservizi.
 
@@ -35,7 +35,7 @@ L'essere senza stato rende quindi molto semplice scalare orizzontalmente il sist
 \subsection{Riferimenti esterni}
 
 \begin{itemize}
-    \item \href{https://github.com/SWEasabi/authentication-micro-service}{codice sorgente del sistema di autenticazione};
+    \item \href{https://github.com/SWEasabi/authentication-micro-service}{Codice sorgente del sistema di autenticazione};
 \end{itemize}
 
 \section{Architettura del sistema}
@@ -59,7 +59,7 @@ Questi due sottosistemi architetturali sono uniti tramite degli adapter, che si 
 
 \section{Core del sistema}
 
-Il core del sistema è composto da 9 classi, che sono rappresentate nel diagramma delle classi alla figura \ref{fig:classi_auth}. Queste si occupano di implementare la business logic del sistema.
+Il core del sistema è composto da nove classi, che sono rappresentate nel diagramma delle classi alla figura \ref{fig:classi_auth}. Queste si occupano di implementare la business logic del sistema.
 
 \begin{figure}[ht]
     \centering
@@ -98,7 +98,7 @@ Le ports del sistema di autenticazione sono due, e si occupano di interfacciare 
 
 \section{Port Interfaccia REST}
 
-La porta rest si interfaccia al core del sistema tramite un'interfaccia chiamata \textbf{CoreAuthService}, che espone le funzionalità di autenticazione del core del microservizio, come si può vedere nel diagramma delle classi alla figura \Ref{fig:classi_portrest}.
+La porta REST si interfaccia al core del sistema tramite un'interfaccia chiamata \textbf{CoreAuthService}, che espone le funzionalità di autenticazione del core del microservizio, come si può vedere nel diagramma delle classi alla figura \Ref{fig:classi_portrest}.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{img/classi_portrest.png}
@@ -106,7 +106,7 @@ La porta rest si interfaccia al core del sistema tramite un'interfaccia chiamata
     \label{fig:classi_portrest}
 \end{figure}
 
-L'interfaccia rest viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
+L'interfaccia REST viene esposta all'esterno e permette di effettuare le operazioni discusse nelle sotto-sezioni successive.
 
 \begin{itemize}
     \item POST /login
