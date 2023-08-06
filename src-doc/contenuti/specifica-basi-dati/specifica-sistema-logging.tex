@@ -1,10 +1,49 @@
-\section{Base di dati sistema logging}
+\section{Base di dati sistema logging}\label{sec:sbd-sistema-logging}
 
 \subsection{Abstract}
 
 L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligente dei log. Questo servizio offre numerosi benefici legati alla retrospettiva. Il miglioramento delle prestazioni del sistema, la risoluzione rapida dei problemi, il rilevamento delle minacce alla sicurezza e la generazione di informazioni utili per l'analisi e il miglioramento continuo sono solo alcuni dei benefici che questo servizio permette.
 
 \subsection{Analisi dei requisiti}
+
+\subsubsection{Descrizione testuale}
+
+Il microservizio per funzionare correttamente avrà bisogno di memorizzare ogni cambiamento, denominato {\it{log}}, a lungo termine. Dei {\it{log}} ci interessa:
+
+\begin{itemize}
+    \item l'id del log;
+    \item l'id del misuratore che ha cambiato stato;
+    \item l'istante in cui la modifica è  stata effettuata;
+    \item il valore del log, che cambia a seconda che la modifica avvenga ad un sensore oppure ad un lampione;
+    \item la tipologia di log.
+\end{itemize}
+
+\subsubsection{Glossario dei termini}
+
+Per evitare ambiguità relative alle terminologie utilizzate è stato creato un documento denominato \textit{Glossario}.
+
+Questo documento contiene tutti i termini specifici di settore utilizzati nei documenti, con le relative definizioni.
+
+\subsubsection{Operazioni tipiche}
+
+Le operazioni tipiche che ci si aspetta di avere sono:
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \rowcolor{gray!30}
+        \multicolumn{2}{|c|}{\textbf{OPERAZIONI TIPICHE}}
+        \\
+        \hline
+        \rowcolor{gray!30}
+        \textbf{{DESCRIZIONE}} & \textbf{{FREQUENZA D'USO}} \\
+        \hline
+        Lettura di molteplici log aggregati per l'estrazione dei trend & Molte volte \\
+        \hline
+        Scrittura del log & Molte volte\\
+        \hline
+    \end{tabularx}
+\end{center}
 
 \subsection{Progettazione concettuale}
 
@@ -19,9 +58,11 @@ L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligen
         \rowcolor{gray!30}
         \multicolumn{4}{|c|}{\textbf{LOG}}\\
         \hline
-        idMisuratore & INTEGER & Identifica univocamente, insieme a {\it{time}}, un log & Chiave\\
+        id & INTEGER & Identifica univocamente un log & Chiave\\
         \hline
-        time & LONG & Indica quando c'è stata una variazione ad un lampione o ad un sensore & Chiave\\
+        idMisuratore & INTEGER & \multicolumn{2}{l|}{Identifica il misuratore di riferimento} \\
+        \hline
+        istanteModifica & LONG & \multicolumn{2}{l|}{Indica quando c'è stata una variazione ad un lampione o ad un sensore} \\
         \hline
         valore & INTEGER & \multicolumn{2}{l|}{Nel caso di un sensore, indica se è in grado di rilevare persone oppure no} \\
         & & \multicolumn{2}{l|}{Nel caso di un lampione, indica il suo valore di luminosità} \\
@@ -34,7 +75,20 @@ L’obiettivo è sviluppare un servizio che tenga traccia in maniera intelligen
 \subsubsection{Schema ER concettuale}
 
 \begin{center}
-    \includegraphics[width=12cm]{contenuti/specifica-basi-dati/img-sbd/logging_concettuale.png}
+    \includegraphics[width=4.5cm]{contenuti/specifica-basi-dati/img-sbd/logging_concettuale.png}
 \end{center}
 
 \subsection{Progettazione logica}
+
+\subsubsection{Schema concettuale ristrutturato - Schema Logico}
+
+\begin{center}
+    \includegraphics[width=4.5cm]{contenuti/specifica-basi-dati/img-sbd/logging_logico.png}
+\end{center}
+
+\subsubsection{Descrizione schema relazionale}
+
+Per questione di compatibilità con il DBMS alcuni nomi di attributi entità e relazioni sono stati normalizzati, utilizzando il camelCase, togliendo gli accenti, accorciando i nomi molto lunghi e con altre piccole accortezze.
+La chiave primaria è indicata in \textbf{grassetto}, le chiavi esterne sono indicate con la \underline{sottolineatura}.
+
+\textit{Log}(\textbf{id}, \underline{idMisuratore}, istanteModifica, valore, tipo)

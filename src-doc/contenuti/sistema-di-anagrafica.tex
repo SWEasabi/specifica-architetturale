@@ -9,17 +9,17 @@ Il sistema di anagrafica si occupa di gestire le informazioni anagrafiche dei se
 \subsection{RF\_03}
 RF\_03:deve essere possibile aggiungere nuovi sensori a sistema.
 
-Questo microservizio, copre il requisito peristendo i dati anagrafici del sensore.
+Questo microservizio, copre il requisito persistendo i dati anagrafici del sensore.
 
 \subsection{RF\_08}
 RF\_08:l'utente deve poter inserire la locazione geografica del sensore nel sistema.
 
-Questo microservizio, copre il requisito peristendo i dati di locazione del sensore.
+Questo microservizio, copre il requisito persistendo i dati di locazione del sensore.
 
 \subsection{RF\_09}
 RF\_09:l'utente deve poter inserire il raggio di azione del sensore.
 
-Questo microservizio, copre il requisito peristendo i dati di raggio di azione del sensore.
+Questo microservizio, copre il requisito persistendo i dati di raggio di azione del sensore.
 
 \subsection{RF\_10}
 RF\_10:l'utente deve poter essere in grado di visualizzare quali aree sono illuminate in un dato momento
@@ -45,19 +45,19 @@ Il servizio nasce molto semplice e per questo motivo non è stato ritenuto neces
 
 Ognuna delle classi rispetta però SOLID e soprattutto il principio della singola responsabilità.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{img/anagrafe_generale.png}
-    \caption{Vista generale del sistema di anagrafe, si consiglia visione nel dettaglio delle immagini \ref{fig:services_anagrafe}, \ref{fig:manager_anagrafe} e \ref{fig:core_anagrafe}}
+    \caption{Vista generale del sistema di anagrafe, si consiglia visione nel dettaglio delle immagini \ref{fig:services_anagrafe}, \ref{fig:managers_anagrafe} e \ref{fig:core_anagrafe}}
     \label{fig:general_anagrafe}
 \end{figure}
 
 \section{Servizi}
 
-I servizi sono in generale le interfaccie ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
+I servizi sono in generale le interfacce ad alto livello delle funzionalità del sistema. Sono composti da classi che si occupano di gestire le richieste e di fornire i dati richiesti.
 Questi si possono essere visionati nell'immagine \ref{fig:services_anagrafe}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{img/services_anagrafe.png}
     \caption{Diagramma delle classi del modello all'interno del sistema di anagrafe}
@@ -131,9 +131,9 @@ Il sistema risponderà con un JSON contenente tutti i dati relativi al sensore r
 
 \subsection{ GET /getSensorsInArea/idArea}
 
-GetSensorsInArea permette di ottenere i dati relativi a tutti i sensorioni in un'area. L'utente deve fornire l'id dell'area della quale si desidera visualizzare i sensorioni.
+GetSensorsInArea permette di ottenere i dati relativi a tutti i sensori in un'area. L'utente deve fornire l'id dell'area della quale si desidera visualizzare i sensori .
 
-Il sistema risponderà con un JSON contenente tutti i dati relativi ai sensorioni presenti in quell'area.
+Il sistema risponderà con un JSON contenente tutti i dati relativi ai sensori presenti in quell'area.
 
 \subsection{ PUT /addSensor}
 
@@ -155,15 +155,15 @@ Il sistema ritorna infine un boolean positivo in caso di successo, negativo in c
 
 \section{Managers}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{img/manager_anagrafe.png}
+    \includegraphics[width=0.5\textwidth]{img/managers_anagrafe.png}
     \caption{Diagramma delle classi relative ai servizi del sistema di anagrafe}
-    \label{fig:manager_anagrafe}
+    \label{fig:managers_anagrafe}
 \end{figure}
 
 Si occupano di fare da tramite tra il servizio che colloquia fisicamente con il DB e il controller che si occupa di gestire le richieste REST.
-Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:manager_anagrafe}.
+Si possono vedere i metodi dei servizi nel diagramma delle classi \ref{fig:managers_anagrafe}.
 
 \begin{itemize}
     \item \textbf{LampManager}: si occupa della gestione (ottenimento, inserimento, modifica o cancellazione) dei dati relativi ai lampioni nel database.
@@ -182,13 +182,13 @@ Ha la responsabilità di gestire l'inserimento e la rimozione di un sensore dal 
 \paragraph{AreaManager}
 Ha la responsabilità di gestire l'inserimento e la rimozione di un'area dal database, oltre che di ottenere i dati relativi a un'area o a tutte le aree.
 
-\section{Core}\label{sec:core} L'interfaccia accentra tutte le funzionalità base del sistema rendendo semplice l'implementazione di nuove interfaccie esterne all'utente.
+\section{Core}\label{sec:core} L'interfaccia accentra tutte le funzionalità base del sistema rendendo semplice l'implementazione di nuove interfacce esterne all'utente.
 
 Tutti i suoi metodi sono statici e permettono di ottenere i dati dal database in modo semplice e veloce.
 
 I metodi che questa componente offre sono visibili nel diagramma delle classi \ref{fig:core_anagrafe}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{img/core_anagrafe.png}
     \caption{Diagramma delle classi relative al core del sistema di anagrafe}

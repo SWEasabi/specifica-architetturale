@@ -1,4 +1,4 @@
-\section{Base di dati sistema anagrafe}
+\section{Base di dati sistema anagrafe}\label{sec:sbd-sistema-anagrafe}
 
 \subsection{Abstract}
 
@@ -7,6 +7,53 @@ L'obiettivo è sviluppare un servizio che tenga ordinati e renda sempre disponib
 Queste informazioni sono particolarmente utili per contestualizzare ognuna delle componenti {\it{hardware}} del sistema.
 
 \subsection{Analisi dei requisiti}
+
+\subsubsection{Descrizione testuale}
+
+Il microservizio di anagrafe ha bisogno di memorizzare, per poter funzionare correttamente, i seguenti dati:
+
+\begin{itemize}
+    \item le aree, in particolare le informazioni;
+    \item i lampioni e le loro informazioni, ovvero posizione e consumo energetico;
+    \item i sensori e le loro informazioni, ovvero posizione e raggio d'azione.
+\end{itemize}
+
+Inoltre per i misuratori, ovvero lampioni e sensori, viene salvata anche l'area di appartenenza.
+
+\subsubsection{Glossario dei termini}
+
+Per evitare ambiguità relative alle terminologie utilizzate è stato creato un documento denominato \textit{Glossario}.
+
+Questo documento contiene tutti i termini specifici di settore utilizzati nei documenti, con le relative definizioni.
+
+\subsubsection{Operazioni tipiche}
+
+Le operazioni tipiche che ci si aspetta di avere sono:
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \rowcolor{gray!30}
+        \multicolumn{2}{|c|}{\textbf{OPERAZIONI TIPICHE}}
+        \\
+        \hline
+        \rowcolor{gray!30}
+        \textbf{{DESCRIZIONE}} & \textbf{{FREQUENZA D'USO}} \\
+        \hline
+        Quanti lampioni si trovano all'interno di un'area & Poche volte \\
+        \hline
+        Quali lampioni si trovano all'interno di un'area & Molte volte\\
+        \hline
+        Il sensore X che lampioni controlla? & Molte volte \\
+        \hline
+        Aggiunta di un'area & Poche volte\\
+        \hline
+        Aggiunta di un lampione ad un'area & Medie volte \\
+        \hline
+        Aggiunta di un sensore ad un'area & Medie volte\\
+        \hline
+    \end{tabularx}
+\end{center}
 
 \subsection{Progettazione concettuale}
 
@@ -75,6 +122,8 @@ Queste informazioni sono particolarmente utili per contestualizzare ognuna delle
         \hline
         luminosita & INTEGER & Livello di luminosità in cui si trova il lampione \\
         \hline
+        wattaggio & INTEGER & Consumo energetico del lampione \\
+        \hline
     \end{tabularx}
 \end{center}
 
@@ -104,3 +153,42 @@ Queste informazioni sono particolarmente utili per contestualizzare ognuna delle
 \end{center}
 
 \subsection{Progettazione logica}
+
+\subsubsection{Eliminazione delle generalizzazioni}
+
+\paragraph{Misuratore}
+
+Per evitare di accorpare le entità Sensore e Lampione nell'entità padre Misuratore, creando così dei campi NULL, è stato deciso di risolvere la generalizzazione mantenendo le tre entità inserendo le relazioni tra le entità figlie e l'entità padre.
+
+\subsubsection{Modifiche, aggiunte e chiarimenti alle chiavi}
+
+Tutte le chiavi primarie sono definite utilizzando le chiavi della progettazione concettuale, tranne nei seguenti casi.
+
+\paragraph{Sensore} Diventando il Sensore un'entità a sé stante, viene aggiunta una chiave esterna, che fungerà anche da chiave primaria, che indica il Misuratore a cui fa riferimento.
+
+\paragraph{Lampione} Diventando il Lampione un'entità a sé stante, viene aggiunta una chiave esterna, che fungerà anche da chiave primaria, che indica il Misuratore a cui fa riferimento.
+
+\subsubsection{Schema concettuale ristrutturato - Schema Logico}
+
+\begin{center}
+    \includegraphics[width=12cm]{contenuti/specifica-basi-dati/img-sbd/anagrafica_logico.png}
+\end{center}
+
+\subsubsection{Descrizione schema relazionale}
+
+Per questione di compatibilità con il DBMS alcuni nomi di attributi entità e relazioni sono stati normalizzati, utilizzando il camelCase, togliendo gli accenti, accorciando i nomi molto lunghi e con altre piccole accortezze.
+La chiave primaria è indicata in \textbf{grassetto}, le chiavi esterne sono indicate con la \underline{sottolineatura}.
+
+\textit{Area}(\textbf{id}, nome, autoMode, lvlInf, lvlSup) \\
+\textit{Misuratore}(\textbf{id}, \underline{idArea}, tipo, latitudine, longitudine) \\
+\textit{Sensore}(\underline{\textbf{idMisuratore}}, raggio) \\
+\textit{Lampione}(\underline{\textbf{idMisuratore}}, luminosita, wattaggio)
+
+\subsubsection{Vincoli di integrità referenziali}
+
+\textbf{Sensore}.idMisuratore -> \textit{Misuratore}.id \\
+\textbf{Lampione}.idMisuratore -> \textit{Misuratore}.id
+
+\subsubsection{Check e constraint}
+
+\paragraph{Area} In \textbf{Area} è attivato un check che controlla che il valore del livello inferiore sia sempre minore del valore del livello superiore.
