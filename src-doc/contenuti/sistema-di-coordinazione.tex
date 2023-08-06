@@ -36,7 +36,7 @@ Le componenti principali saranno:
 
 La pila di Payload usa il paradigma del \textbf{Producer-Consumer}, in cui il produttore è la porta ricevente, mentre il consumatore è l'algoritmo di analisi.
 
-È poi presente un database\footnote{Vedi sezione relativa al database e alla sua progettazione \ref{cap:db-sistema-coordinatore}} al quale il sistema si connette, per mantenere gli stati anche in caso di reboot del sistema.
+È poi presente un database\footnote{Vedi sezione relativa al database e alla sua progettazione \ref{sec:sbd-sistema-coordinazione}} al quale il sistema si connette, per mantenere gli stati anche in caso di reboot del sistema.
 
 Inoltre, se il programma farà comunque del caching dei dati, sarà comunque nel database che verranno depositati i dati quando la cache diventa troppo grande.
 
