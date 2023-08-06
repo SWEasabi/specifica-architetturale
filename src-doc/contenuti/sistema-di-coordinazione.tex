@@ -57,12 +57,23 @@ Il sistema è composto da un'interfaccia rest, un'interfaccia mqtt, un collegame
 
 Il database viene gestito come repository, e ognuna delle entità viene gestita come tale.
 
+Le classi relative ai repository sono:
+
 \begin{itemize}
     \item \textbf{AreaRepository}: Fornisce l'accesso al database per le aree;
     \item \textbf{LampRepository}: Fornisce l'accesso al database per i lampioni;
     \item \textbf{MisuratoreRepository}: 
     \item \textbf{SensoreRepository}: Fornisce l'accesso al database per i sensori;
 \end{itemize}
+
+Le classi sopra descritte sono visibili in figura \ref{fig:coordinazione_db}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/illuminazione_repository.png}
+    \caption{Diagramma delle classi relative ai repository e al sistema connesso al database}
+    \label{fig:coordinazione_db}
+\end{figure}
 
 Queste classi effettuano le operazioni sul db tramite JPA.
 
@@ -71,6 +82,16 @@ Queste classi effettuano le operazioni sul db tramite JPA.
 La classe \textbf{Beanconfig} contiene tutti i bean di Spring relativi alla configurazione per mqtt e per il database.
 
 \subsection{Classi legate ad MQTT}
+
+Per la gestione di mqtt sono presenti le seguenti classi visibili in figura \ref{fig:coordinazione_mqtt}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/illuminazione_mqtt.png}
+    \caption{Diagramma delle classi relative alla parte mqtt del sistema di coordinazione}
+    \label{fig:coordinazione_mqtt}
+\end{figure}
+
 
 \begin{itemize}
     \item \textbf{MqttController}: Si occupa di gestire la ricezione dei messaggi da mqtt e di inoltrarli al sistema ad eventi;
@@ -81,6 +102,15 @@ La classe \textbf{Beanconfig} contiene tutti i bean di Spring relativi alla conf
 \subsubsection{Payloads}
 
 I payloads sono un oggetto che contiene le informazioni necessarie per l'analisi e la modifica dello stato di illuminazione.
+
+Queste classi vengono descritte nell'immagine \ref{fig:coordinazione_payload}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/illuminazione_payload.png}
+    \caption{Diagramma delle classi relativa ai payloads}
+    \label{fig:coordinazione_payload}
+\end{figure}
 
 \paragraph{Payload} è un'interfaccia che contiene i metodi comuni a tutti i payloads.
 
