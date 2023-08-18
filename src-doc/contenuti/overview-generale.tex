@@ -13,7 +13,7 @@ Ognuna delle responsabilità del sistema è stata suddivisa in un microservizio 
     \item \textbf{Anagrafica}: è il microservizio che si occupa di gestire i dati anagrafici dei lampioni, dei gruppi e delle aree in cui questi sono collocati;
     \item \textbf{Coordinazione}: è il microservizio che si occupa di gestire l'accensione e lo spegnimento dei lampioni secondo regole specifiche e utilizzando le informazioni provenienti dai sensori e da API varie per ottimizzare l'illuminazione;
     \item \textbf{Autenticazione}: è il microservizio che si occupa di gestire l'autenticazione degli utenti e di fornire i token necessari per l'accesso agli altri servizi;
-    \item \textbf{logging}: è il microservizio che si occupa di gestire i log dei lampioni e dei sensori. Da questi, inoltre, vengono estratte informazioni necessarie per la gestione dell'illuminazione e più in generale aggregazioni di dati utli per l'analisi e la presentazione all'utente.
+    \item \textbf{logging}: è il microservizio che si occupa di gestire i log dei lampioni e dei sensori. Da questi, inoltre, vengono estratte informazioni necessarie per la gestione dell'illuminazione e più in generale aggregazioni di dati utili per l'analisi e la presentazione all'utente.
 \end{itemize}
 
 Possiamo definire queste responsabilità come dei componenti. Ognuno di questi componenti ha un'interfaccia ben definita e può essere sostituito con un altro componente che implementa la stessa interfaccia. Questo ci permette di utilizzare al massimo le pratiche di CICD.

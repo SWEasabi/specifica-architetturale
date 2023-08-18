@@ -95,7 +95,7 @@ Per la gestione di MQTT sono presenti le seguenti classi visibili in figura \ref
 
 \begin{itemize}
     \item \textbf{MqttController}: Si occupa di gestire la ricezione dei messaggi da MQTT e di inoltrarli al sistema ad eventi;
-    \item \textbf{Producer}: Questa classe rimane in ascolto delle rilavazioni MQTT, quando dal topic sensore arriva un cambiamento, questo viene segnalato al logging\footnote{Il logging poi loggerà l'informazione}. In ultimo genera un payload e lo aggiunge alla coda dei payload da processare;
+    \item \textbf{Producer}: Questa classe rimane in ascolto delle rilevazioni MQTT, quando dal topic sensore arriva un cambiamento, questo viene segnalato al logging\footnote{Il logging poi loggerà l'informazione}. In ultimo genera un payload e lo aggiunge alla coda dei payload da processare;
     \item \textbf{Consumer}: Quando vede che la coda dei payload non è vuota raccoglie le operazioni da fare, analizza lo stato e modifica la luminosità dei lampioni via mqtt, inoltre aggiorna il database con il nuovo stato;
 \end{itemize}
 
